@@ -15,7 +15,6 @@ int main(){
         cout<<"A is greater than B";
     }
     else
-    cout<<"B is greater than A";  
-    
+    cout<<"B is greater than A";
     return 0;  
 }
