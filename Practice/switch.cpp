@@ -15,15 +15,19 @@ int main()
     switch (choice)
     {
     case 1:
+        cout<<"Sum of numebers is ";
         cout<<num1 + num2;
         break;
     case 2:
+        cout<<"Multiplication of numbers is ";
         cout<<num1 * num2;
         break;
     case 3:
+        cout<<"Division of two numbers is ";
         cout<<num1 / num2;
         break;
     case 4:
+        cout<<"Difference of two numbers is ";
         cout<<num1 - num2;
         break;
     default:
