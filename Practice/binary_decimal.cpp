@@ -1,5 +1,4 @@
-#include<iostream>
-#include<string.h>
+#include<bits/stdc++.h>
 using namespace std;
 
 void dec_to_binary() {
@@ -121,8 +120,42 @@ int hex_to_decimal()
     }
     return dec_val;
 }
+void bin_to_octal()
+{
+	long long num,octo=0, j=1, rem;
+	cout<<"Enter the binary number you want to convert: ";
+	cin>>num;
+	while(num!=0)
+	{
+		rem = num%10;
+		octo = octo+rem*j;
+		j = j*2;
+		num = num/10;
+	}
+	cout<<"The converted number in Decimal is: "<<octo;
+}
+void octal_to_binary()
+{
+	int decimal = 0, octal, remainder, product = 0;
+  	long binary = 0;
+	cout<<"Enter the octal number to convert: ";
+	cin >> octal;
+	while(octal != 0)
+	{
+    		decimal += (octal%10) * pow(8,product);
+    		++product;
+    		octal /= 10;
+    	}
+	product = 1;
+   	while (decimal != 0)
+	{
+		binary += (decimal % 2) * product;
+		decimal /= 2;
+		product *= 10;
+	}
+	cout << "The number in the binary form is: " << binary;
 
-
+}
 
 
 int main()
@@ -137,6 +170,8 @@ int main()
 	cout<<"4. Octal to Decimal conversion"<<endl;
 	cout<<"5. Decimal to Hexadecimal conversion"<<endl;
 	cout<<"6. Hexadecimal to Decimal conversion"<<endl;
+	cout<<"7. Binary to Decimal conversion"<<endl;
+	cout<<"8. Octal to Binary conversion"<<endl;
 
 
 	cout<<"Enter your choice: ";
@@ -159,6 +194,12 @@ int main()
 			break;
 		case 6:
 			hex_to_decimal();
+			break;
+		case 7:
+			bin_to_octal();
+			break;
+		case 8:
+			octal_to_binary();
 			break;
 		default:
 			cout<<"Invalid choice";
