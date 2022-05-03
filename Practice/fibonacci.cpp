@@ -15,7 +15,10 @@ for(int i=2;i<=n;i++)
 	res = a+b;
 	a=b;
 	b = res;
-	cout<<res<<'\t';
+	if(res<n)
+	{
+		cout<<res<<'\t';
+	}
 }
 }
 int main()
