@@ -11,6 +11,7 @@ int min(int,int);
 void maxx();
 void minn();
 void diagonal();
+void sum_all();
 
 int arr[3][3];
 int trans[3][3];
@@ -125,7 +126,7 @@ void transpose()
           }
      }
      // cout<<"Transpose of the matrix is: "
-     scanf("Transpose of the matrix is: ");
+     printf("Transpose of the matrix is: \n");
      for(int i=0;i<3;i++)
      {
           for(int j=0;j<3;j++)
@@ -164,7 +165,8 @@ void menu()
      printf("5. Maximum element of the 2D array\n");
      printf("6. Minimum element of the 2D array\n");
      printf("7. Diagonal elements of the 2D array\n");
-     printf("8. Exit\n");
+     printf("8. Sum of all elements\n");
+     printf("9. Exit\n");
      cases();
 }
 
@@ -202,6 +204,22 @@ void add()
      printf("\nChoose your next task: ");
      cases();
 }
+
+void sum_all()
+{
+     int sum=0;
+     for(int i=0;i<3;i++)
+     {
+          for(int j=0;j<3;j++)
+          {
+               sum += arr[i][j];
+          }
+     }
+     printf("Sum of all elements in the 2D array is: %d\n", sum);
+     printf("\nChoose your next task: ");
+     cases();
+
+}
 void cases()
 {
      int choice;
@@ -230,6 +248,9 @@ void cases()
                diagonal();
                break;
           case 8:
+               sum_all();
+               break;
+          case 9:
                printf("Thank you for your time.");
                return;
           default:
