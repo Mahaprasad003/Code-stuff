@@ -29,17 +29,17 @@ void create(struct node *p)
           p->next=start;
           i++;
           printf("Input choice for break\n");
-          scanf("%c", &ch);
+          scanf(" %c", &ch);
      }
 }
 
 //Display the linked list created
 void display(struct node *p)
 {
-     printf("Data of the entered nodes are as follows: ");
-     while(p)
+     printf("Data of the entered nodes are as follows: \n");
+     while(p->next != NULL)
      {
-          printf("%d\n", &p->data);
+          printf("%d\n", p->data);
           p = p->next;
      }
 }

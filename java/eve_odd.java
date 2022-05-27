@@ -7,7 +7,7 @@ class eve_odd
       Scanner sc = new Scanner(System.in);
       System.out.print("Enter the number of elements you want to store: ");
       int n = sc.nextInt();
-      int[] arr = newint[10];
+      int[] arr = new int[n];
       System.out.println("Enter the elements of the array: ");
       for(int i=0; i<n; i++)
       {
@@ -15,13 +15,13 @@ class eve_odd
       }
       int eve = 0;
       int odd = 0;
-      for(int i=0;i<10;i++)
+      for(int i=0;i<n;i++)
       {
           if(arr[i] % 2 == 0)
           {
               eve++;
           }
-          if(arr[i] % 2 ! == 0)
+          if(arr[i] % 2 != 0)
           {
               odd++;
           }
