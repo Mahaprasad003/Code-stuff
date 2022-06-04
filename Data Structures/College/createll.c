@@ -17,7 +17,7 @@ void display(struct node*);
 void create(struct node *p)
 {
      char ch;
-     printf("\n input choice n for break");
+     printf("\n Press 'n' to stop");
      int i=0;
      ch = getchar();
      while(ch != 'n')
@@ -28,7 +28,7 @@ void create(struct node *p)
           p = p->next;
           p->next=start;
           i++;
-          printf("Input choice for break\n");
+          printf("Press 'n' to stop\n");
           scanf(" %c", &ch);
      }
 }
@@ -44,9 +44,22 @@ void display(struct node *p)
      }
 }
 
+//Insert a new node
+void insertNode(struct node *p)
+{
+     printf("Enter the value you want to add: ");
+     scanf("%d", &p->data);
+     p = (struct node*)malloc(sizeof(struct node));
+     p = p->next;
+     p->next = start;
+     start = p;
+     printf("Success! Node inserted");
+}
+
 void main()
 {
      struct node *p=(struct node*)malloc(sizeof(struct node));
      create(p);
      display(p);
+     insertNode(p);
 }
