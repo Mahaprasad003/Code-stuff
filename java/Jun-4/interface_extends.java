@@ -16,6 +16,10 @@ interface Figure
 	double perimeter();
 }
 
+interface Shape extends Figure{
+
+}
+
 class Rectangle implements Figure
 {
 	double dim1, dim2;
@@ -55,7 +59,7 @@ class Triangle implements Figure
 	}
 }
 
-class Circle implements Figure
+class Circle implements Shape
 {
 	double dim1;
 	Circle(double a)
@@ -74,7 +78,7 @@ class Circle implements Figure
 	}
 }
 
-class DemoAbstract
+class DemoAbstractt
 {
 	public static void main(String args[])
 	{

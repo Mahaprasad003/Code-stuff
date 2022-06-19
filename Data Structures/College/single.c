@@ -24,13 +24,21 @@ void main()
       printf("\n\n Singly Linked List!\n\n");
       printf("Choose an option from the below list!\n");
       printf("\n**************************************\n");
-      printf("1.Do insertion at beginning of the list!\n2.Do insertion at last!\n3.Do insertion at random location!\n4.Do deletion from the beginning of the list!\n5.Do deletion at the last of the list!\n6.Do deletion of a node after a specified node!\n7.Perform a searching operation for an element!\n8.Display!\n9.Exit!\n");
+      printf("1.Do insertion at beginning of the list!\n");
+      printf("2.Do insertion at last!\n");
+      printf("3.Do insertion at random location!\n");
+      printf("4.Do deletion from the beginning of the list!\n");
+      printf("5.Do deletion at the last of the list!\n");
+      printf("6.Do deletion of a node after a specified node!\n");
+      printf("7.Perform a searching operation for an element!\n");
+      printf("8.Display!\n");
+      printf("9.Exit!\n");
       printf("\nEnter your choice?\n");
       scanf("\n%d",&your_choice);
       switch(your_choice)
       {
           case 1:
-          insert_at_begin();
+          insertBegin();
           break;
           case 2:
           insert_at_last();
@@ -61,7 +69,7 @@ void main()
       }
   }
 }
-void insert_at_begin()
+void insertBegin()
 {
   struct node *point;
   int value;

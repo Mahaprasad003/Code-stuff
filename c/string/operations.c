@@ -207,6 +207,8 @@ void substring()
      subs[c] = '\0';
 
      printf("%s", subs);
+     printf("\nChoose your next task: ");
+     cases();
 }
 
 void cases()
