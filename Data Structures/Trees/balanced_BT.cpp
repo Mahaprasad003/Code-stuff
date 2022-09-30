@@ -20,6 +20,11 @@ struct node *newNode(int data)
 }
 
 
+// We are basically checking if the difference between the left subtree and right subtree
+// is anything other than 1 or 0. If it is, then return -1 and the function
+// isBalancedBT recieves -1 or height. If it is -1, it returns 0 else 1.
+
+
 int check_balancedBT(node *curr) // added some extra stuff to max_depth
 {
 	if(curr == NULL)
