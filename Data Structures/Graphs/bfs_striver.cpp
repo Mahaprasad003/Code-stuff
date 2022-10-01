@@ -1,8 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class Solution {
-  public:
+class Solution{
+public:
     // Function to return Breadth First Traversal of given graph.
     vector<int> bfsOfGraph(int V, vector<int> adj[]) {
         int vis[V] = {0}; 
