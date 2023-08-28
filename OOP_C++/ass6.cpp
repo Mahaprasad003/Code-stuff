@@ -1,0 +1,3 @@
+/*
+design a class staticDemo to show the implementation of static variable
+*/
