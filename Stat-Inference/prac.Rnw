@@ -1,0 +1,24 @@
+\documentclass{article}
+
+\begin{document}
+
+\begin{center}
+Practice for exam \\
+Name: Mahaprasad Mohanty \\
+Registration: 24MDT0061 \\
+Course: Statistical Inference \\
+Code: PMDS503P
+Slot: L33+L34
+\end{center}
+
+
+\section{Plotting}
+<<>>=
+commodities <- c("Food", "Rent", "Clothes", "Education", "Miscellaneous", "Savings")
+expenditure_A <- c(10, 25, 4, 13, 2, 17)
+
+pie(expenditure_A, labels=commodities)
+@
+
+
+\end{document}

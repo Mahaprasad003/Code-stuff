@@ -1,0 +1,124 @@
+\documentclass{article}
+
+\begin{document}
+
+
+\begin{center}
+Assignment 4 \\
+Name: Mahaprasad Mohanty \\
+Registration: 24MDT0061 \\
+Course: Statistical Inference \\
+Code: PMDS503P
+Slot: L33+L34
+\end{center}
+
+\section{Question 1}
+<<>>=
+# part a
+
+N <- 140
+D <- 20
+n <- 20
+
+# Probability of 0 defective cards
+P_X_0 <- phyper(0, D, N-D, n, lower.tail = FALSE)
+
+
+# Probability of at least 1 defective card
+P_X_at_least_1 <- 1 - P_X_0
+
+cat("Probability of atleast 1 defective if 20 cards are defective is", P_X_at_least_1)
+
+
+# part b
+
+N <- 140
+D <- 5
+n <- 20
+
+# Probability of 0 defective cards
+P_X_0 <- phyper(0, D, N-D, n, lower.tail = FALSE)
+
+# Probability of at least 1 defective card
+P_X_at_least_1 <- 1 - P_X_0
+cat("Probability of atleast 1 defective card if 5 cards are defective is", P_X_at_least_1)
+@
+
+\section{Question 2}
+
+<<>>=
+# part a
+
+
+# Mean rate for 8 hours
+lambda_8 <- 0.02 * 8
+
+# Probability of 0 failures
+P_X_0 <- dpois(0, lambda_8)
+cat("Probability that the instrument does not fail in an 8-hour shift is ",P_X_0)
+
+# part b
+
+lambda_24 <- 0.02 * 24
+
+# Probability of 0 failures
+P_X_0 <- dpois(0, lambda_24)
+
+# Probability of at least 1 failure
+P_X_at_least_1 <- 1 - P_X_0
+cat("Probability of atleast one failure in a 24-hour day is",P_X_at_least_1)
+@
+
+\section{Question 3}
+<<>>=
+# part a
+mu <- 5
+sigma <- 0.2
+
+# Probability of X > 5.5
+P_X_greater_5_5 <- 1 - pnorm(5.5, mean = mu, sd = sigma)
+cat("Probability of covering thickness greater than 5.5 mm is ",P_X_greater_5_5)
+
+# part b
+P_X_between_4_5_and_5_5 <- pnorm(5.5, mean = mu, sd = sigma) - pnorm(4.5, mean = mu, sd = sigma)
+
+# Probability of not meeting specifications
+P_X_not_meet_specs <- 1 - P_X_between_4_5_and_5_5
+cat("If specifications require thickness between 4.5 and 5.5 , then proportions of coverings that do not meet the specifications is ",P_X_not_meet_specs)
+
+# part c
+
+x_95 <- qnorm(0.95, mean = mu, sd = sigma)
+cat("Value below which 95% remain is ",x_95)
+@
+
+\section{Question 4}
+<<>>=
+# part a
+
+lambda <- 1 / 10
+
+# Probability of X < 5
+P_X_less_5 <- pexp(5, rate = lambda)
+cat("Probability of time until the next class less than 5 mins is ",P_X_less_5)
+
+# part b
+
+P_X_less_15 <- pexp(15, rate = lambda)
+
+# Probability of 5 < X < 15
+P_X_between_5_and_15 <- P_X_less_15 - P_X_less_5
+cat("Probability that the time until next class is between 5 and 15 mins is ",P_X_between_5_and_15)
+
+# part c
+
+t <- -log(0.10) / lambda
+cat("Length of interval such that probability of atleast one call in the interval is 0.90 ",t)
+@
+
+
+
+
+
+
+\end{document}

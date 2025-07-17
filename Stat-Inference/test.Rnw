@@ -1,0 +1,20 @@
+\documentclass{article}
+
+\begin{document}
+
+
+\begin{center}
+Name: Mahaprasad Mohanty \\
+Registration: 24MDT0061 \\
+Course: Statistical Inference \\
+Code: PMDS503P
+Slot: L33+L34
+\end{center}
+<<>>=
+x <- c(1:10)
+x **2 
+@
+
+
+
+\end{document}

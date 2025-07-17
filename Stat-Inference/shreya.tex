@@ -1,0 +1,232 @@
+\documentclass{article}\usepackage[]{graphicx}\usepackage[]{xcolor}
+% maxwidth is the original width if it is less than linewidth
+% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlsng}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hldef}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+
+\title{Statistical Analysis with R}
+\author{Your Name}
+\date{\today}
+\maketitle
+
+\section{Two-Sample t-Test for Equal Means}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{brand1} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlnum{10.62}\hldef{,} \hlnum{10.58}\hldef{,} \hlnum{10.33}\hldef{,} \hlnum{10.72}\hldef{,} \hlnum{10.44}\hldef{,} \hlnum{10.74}\hldef{)}
+\hldef{brand2} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlnum{10.50}\hldef{,} \hlnum{10.52}\hldef{,} \hlnum{10.58}\hldef{,} \hlnum{10.62}\hldef{,} \hlnum{10.55}\hldef{,} \hlnum{10.51}\hldef{,} \hlnum{10.53}\hldef{)}
+\hldef{t_test_result_05} \hlkwb{<-} \hlkwd{t.test}\hldef{(brand1, brand2,} \hlkwc{var.equal} \hldef{=} \hlnum{TRUE}\hldef{,} \hlkwc{alternative} \hldef{=} \hlsng{"two.sided"}\hldef{,} \hlkwc{conf.level} \hldef{=} \hlnum{0.95}\hldef{)}
+\hldef{t_test_result_01} \hlkwb{<-} \hlkwd{t.test}\hldef{(brand1, brand2,} \hlkwc{var.equal} \hldef{=} \hlnum{TRUE}\hldef{,} \hlkwc{alternative} \hldef{=} \hlsng{"two.sided"}\hldef{,} \hlkwc{conf.level} \hldef{=} \hlnum{0.99}\hldef{)}
+\hlkwd{print}\hldef{(t_test_result_05)}
+\end{alltt}
+\begin{verbatim}
+## 
+## 	Two Sample t-test
+## 
+## data:  brand1 and brand2
+## t = 0.4371, df = 11, p-value = 0.6705
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.1104937  0.1652556
+## sample estimates:
+## mean of x mean of y 
+##  10.57167  10.54429
+\end{verbatim}
+\begin{alltt}
+\hlkwd{print}\hldef{(t_test_result_01)}
+\end{alltt}
+\begin{verbatim}
+## 
+## 	Two Sample t-test
+## 
+## data:  brand1 and brand2
+## t = 0.4371, df = 11, p-value = 0.6705
+## alternative hypothesis: true difference in means is not equal to 0
+## 99 percent confidence interval:
+##  -0.1671738  0.2219357
+## sample estimates:
+## mean of x mean of y 
+##  10.57167  10.54429
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\section{Paired t-Test for SAT Scores}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{before} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlnum{1280}\hldef{,} \hlnum{1200}\hldef{,} \hlnum{1050}\hldef{,} \hlnum{1190}\hldef{,} \hlnum{1250}\hldef{,} \hlnum{1290}\hldef{,} \hlnum{1220}\hldef{,} \hlnum{1270}\hldef{,} \hlnum{1260}\hldef{)}
+\hldef{after}  \hlkwb{<-} \hlkwd{c}\hldef{(}\hlnum{1380}\hldef{,} \hlnum{1310}\hldef{,} \hlnum{1090}\hldef{,} \hlnum{1240}\hldef{,} \hlnum{1290}\hldef{,} \hlnum{1360}\hldef{,} \hlnum{1270}\hldef{,} \hlnum{1330}\hldef{,} \hlnum{1310}\hldef{)}
+\hldef{t_test_sat_05} \hlkwb{<-} \hlkwd{t.test}\hldef{(after, before,} \hlkwc{paired} \hldef{=} \hlnum{TRUE}\hldef{,} \hlkwc{alternative} \hldef{=} \hlsng{"greater"}\hldef{,} \hlkwc{mu} \hldef{=} \hlnum{50}\hldef{,} \hlkwc{conf.level} \hldef{=} \hlnum{0.95}\hldef{)}
+\hldef{t_test_sat_10} \hlkwb{<-} \hlkwd{t.test}\hldef{(after, before,} \hlkwc{paired} \hldef{=} \hlnum{TRUE}\hldef{,} \hlkwc{alternative} \hldef{=} \hlsng{"greater"}\hldef{,} \hlkwc{mu} \hldef{=} \hlnum{50}\hldef{,} \hlkwc{conf.level} \hldef{=} \hlnum{0.90}\hldef{)}
+\hlkwd{print}\hldef{(t_test_sat_05)}
+\end{alltt}
+\begin{verbatim}
+## 
+## 	Paired t-test
+## 
+## data:  after and before
+## t = 1.5689, df = 8, p-value = 0.07765
+## alternative hypothesis: true mean difference is greater than 50
+## 95 percent confidence interval:
+##  47.53021      Inf
+## sample estimates:
+## mean difference 
+##        63.33333
+\end{verbatim}
+\begin{alltt}
+\hlkwd{print}\hldef{(t_test_sat_10)}
+\end{alltt}
+\begin{verbatim}
+## 
+## 	Paired t-test
+## 
+## data:  after and before
+## t = 1.5689, df = 8, p-value = 0.07765
+## alternative hypothesis: true mean difference is greater than 50
+## 90 percent confidence interval:
+##  51.46269      Inf
+## sample estimates:
+## mean difference 
+##        63.33333
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\section{F-Test for Equal Variance (Fish Lengths)}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{coast1} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlnum{18.8}\hldef{,} \hlnum{20.5}\hldef{,} \hlnum{20.0}\hldef{,} \hlnum{21.0}\hldef{,} \hlnum{17.8}\hldef{,} \hlnum{18.2}\hldef{,} \hlnum{17.8}\hldef{,} \hlnum{19.5}\hldef{,} \hlnum{20.0}\hldef{,} \hlnum{18.2}\hldef{,} \hlnum{18.4}\hldef{,} \hlnum{19.8}\hldef{,} \hlnum{19.8}\hldef{,} \hlnum{20.3}\hldef{,} \hlnum{19.0}\hldef{)}
+\hldef{coast2} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlnum{19.8}\hldef{,} \hlnum{21.0}\hldef{,} \hlnum{20.0}\hldef{,} \hlnum{19.5}\hldef{,} \hlnum{18.9}\hldef{,} \hlnum{18.0}\hldef{,} \hlnum{18.5}\hldef{,} \hlnum{18.2}\hldef{,} \hlnum{20.2}\hldef{,} \hlnum{19.0}\hldef{,} \hlnum{19.2}\hldef{,} \hlnum{20.2}\hldef{,} \hlnum{19.2}\hldef{,} \hlnum{17.0}\hldef{,} \hlnum{18.8}\hldef{,} \hlnum{17.6}\hldef{,} \hlnum{18.3}\hldef{,} \hlnum{19.6}\hldef{,} \hlnum{20.2}\hldef{,} \hlnum{18.4}\hldef{)}
+\hldef{f_test_05} \hlkwb{<-} \hlkwd{var.test}\hldef{(coast1, coast2,} \hlkwc{conf.level} \hldef{=} \hlnum{0.95}\hldef{)}
+\hldef{f_test_01} \hlkwb{<-} \hlkwd{var.test}\hldef{(coast1, coast2,} \hlkwc{conf.level} \hldef{=} \hlnum{0.99}\hldef{)}
+\hlkwd{print}\hldef{(f_test_05)}
+\end{alltt}
+\begin{verbatim}
+## 
+## 	F test to compare two variances
+## 
+## data:  coast1 and coast2
+## F = 1.0499, num df = 14, denom df = 19, p-value = 0.9031
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 95 percent confidence interval:
+##  0.3966568 3.0035342
+## sample estimates:
+## ratio of variances 
+##           1.049922
+\end{verbatim}
+\begin{alltt}
+\hlkwd{print}\hldef{(f_test_01)}
+\end{alltt}
+\begin{verbatim}
+## 
+## 	F test to compare two variances
+## 
+## data:  coast1 and coast2
+## F = 1.0499, num df = 14, denom df = 19, p-value = 0.9031
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 99 percent confidence interval:
+##  0.288618 4.292898
+## sample estimates:
+## ratio of variances 
+##           1.049922
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\section{Chi-Square Test for Independence (Machine Breakdowns)}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{breakdowns} \hlkwb{<-} \hlkwd{matrix}\hldef{(}\hlkwd{c}\hldef{(}\hlnum{41}\hldef{,} \hlnum{20}\hldef{,} \hlnum{12}\hldef{,} \hlnum{16}\hldef{,} \hlnum{31}\hldef{,} \hlnum{11}\hldef{,} \hlnum{9}\hldef{,} \hlnum{14}\hldef{,} \hlnum{15}\hldef{,} \hlnum{17}\hldef{,} \hlnum{16}\hldef{,} \hlnum{10}\hldef{),} \hlkwc{nrow} \hldef{=} \hlnum{3}\hldef{,} \hlkwc{byrow} \hldef{=} \hlnum{TRUE}\hldef{)}
+\hldef{chi_test_05} \hlkwb{<-} \hlkwd{chisq.test}\hldef{(breakdowns,} \hlkwc{correct} \hldef{=} \hlnum{FALSE}\hldef{)}
+\hlkwd{print}\hldef{(chi_test_05)}
+\end{alltt}
+\begin{verbatim}
+## 
+## 	Pearson's Chi-squared test
+## 
+## data:  breakdowns
+## X-squared = 11.649, df = 6, p-value = 0.07027
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\section{Goodness of Fit Test for Poisson Distribution}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{observed_counts} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlnum{24}\hldef{,} \hlnum{30}\hldef{,} \hlnum{31}\hldef{,} \hlnum{11}\hldef{,} \hlnum{6}\hldef{)}
+\hldef{x_values} \hlkwb{<-} \hlnum{0}\hlopt{:}\hlnum{4}
+\hldef{total_count} \hlkwb{<-} \hlkwd{sum}\hldef{(observed_counts)}
+\hldef{lambda_hat} \hlkwb{<-} \hlkwd{sum}\hldef{(x_values} \hlopt{*} \hldef{observed_counts)} \hlopt{/} \hldef{total_count}
+\hldef{poisson_probs} \hlkwb{<-} \hlkwd{dpois}\hldef{(x_values,} \hlkwc{lambda} \hldef{= lambda_hat)}
+\hldef{expected_counts} \hlkwb{<-} \hldef{total_count} \hlopt{*} \hldef{poisson_probs}
+\hldef{chisq_test_poisson} \hlkwb{<-} \hlkwd{chisq.test}\hldef{(}\hlkwc{x} \hldef{= observed_counts,} \hlkwc{p} \hldef{= poisson_probs,} \hlkwc{rescale.p} \hldef{=} \hlnum{TRUE}\hldef{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in chisq.test(x = observed\_counts, p = poisson\_probs, rescale.p = TRUE): Chi-squared approximation may be incorrect}}\begin{alltt}
+\hlkwd{print}\hldef{(chisq_test_poisson)}
+\end{alltt}
+\begin{verbatim}
+## 
+## 	Chi-squared test for given probabilities
+## 
+## data:  observed_counts
+## X-squared = 2.4898, df = 4, p-value = 0.6465
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\end{document}
+

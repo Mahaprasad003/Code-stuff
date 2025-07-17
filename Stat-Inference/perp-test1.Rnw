@@ -1,0 +1,129 @@
+\documentclass{article}
+
+\begin{document}
+
+\section{Question 1}
+<<>>=
+data <- c(45, 50, 55, 60, 65, 70, 75, 80)
+mean_data <- mean(data)
+median_data <- median(data)
+variance_data <- var(data)
+std_data <- sd(data)
+
+mean_data
+median_data
+variance_data
+std_data
+@
+\section{question 2}
+<<>>=
+library(datasets)
+data <- iris
+
+boxplot(data$Sepal.Length)
+plot(data$Sepal.Length, data$Petal.Length, xlab="Sepal Length", ylab="Petal Length")
+
+@
+\section{question 3}
+<<>>=
+
+#Null hypothesis: There is significant differences
+#Alter hypo: There is significant difference.
+brand_a <- c(12.4, 13.1, 14.2, 15.0, 13.8)
+brand_b <- c(11.9, 12.5, 13.0, 12.8, 13.2)
+
+t_stat <- t.test(brand_a, brand_b, alternative = "two.sided", var.equal=TRUE, conf.level = 0.95)
+t_stat
+
+
+# given that p_value is 0.07 which is more than 0.05. We reject the null hypothesis that there is significat differences in mean 
+@
+
+\section{question 4}
+<<>>=
+before <- c(15.2, 14.8, 15.5, 16.0, 15.7)
+after <- c(14.5, 14.0, 14.8, 15.2, 14.9)
+
+t_stat <- t.test(before, after, paired = TRUE)
+t_stat
+# therefore the means are different.
+@
+\section{question 5}
+
+<<>>=
+n1 <- 500
+q <- 320
+alpha <- 0.05
+
+prop_stat <- prop.test(320, 500, p=0.5, alternative = "greater", correct=FALSE)
+prop_stat
+
+# given that the p_value is very very small we accept our null hypothesis that more than half the population prefers online shopping.
+@
+
+\section{question 6}
+<<>>=
+before <- c(72, 75, 78, 80, 74)
+after <- c(70, 73, 76, 78, 72)
+
+wil_sta <- wilcox.test(before, after, alternative="two.sided")
+wil_sta
+
+#there is a significat reduction in weight values.
+@
+
+\section{question 7}
+<<>>=
+data <- matrix(c(10, 15,20, 20, 25,30, 30, 35, 40, 40, 25, 35), nrow = 3)
+data
+
+chi_stat <- chisq.test(data)
+chi_stat
+
+# given that the p-value is higher than 0.05, we reject the null hypothesis that the attributes are independent.
+@
+
+\section{question 8}
+
+<<>>=
+# not sure how to do this
+@
+
+\section{question 9}
+<<>>=
+meanwire <- 5
+stdwire <- 0.2
+probab <- pnorm(5.3, mean=meanwire, sd=stdwire)
+probab
+
+# probability is 0.933 that randomly selected covering has thickness greater than 5.3mm
+@
+\section{question 10}
+
+<<>>=
+# no idea how to proceed here
+@
+\section{question 11}
+<<>>=
+library(datasets)
+data <- mtcars
+
+summary(data)
+
+histogram(mtcars$mpg, freq=TRUE, xlab="mpg", ylab="count")
+rpop <- prop.test(c(100, 55), c(190, 65), alternative = "two.sided", correct = FALSE)
+rpop$parameter
+@
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

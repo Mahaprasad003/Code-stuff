@@ -1,0 +1,394 @@
+\documentclass{article}\usepackage[]{graphicx}\usepackage[]{xcolor}
+% maxwidth is the original width if it is less than linewidth
+% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlsng}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hldef}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+
+
+\begin{center}
+Assignment 2 \\
+Name: Mahaprasad Mohanty \\
+Registration: 24MDT0061 \\
+Course: Statistical Inference \\
+Code: PMDS503P
+Slot: L33+L34
+\end{center}
+
+\section{Question 1}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{library}\hldef{(BSDA)}
+\end{alltt}
+
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: lattice}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# \\\#\# Attaching package: 'BSDA'}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# The following object is masked from 'package:datasets':\\\#\# \\\#\# \ \ \ \ Orange}}\begin{alltt}
+\hlcom{# Null hypothesis(H0): new medication does not reduce recovery time. (mean = 14)}
+\hlcom{# Alternative hypthesis (HA): medication reduces recovery time. (mean < 14)}
+
+\hlcom{# This is a left-tailed test}
+
+\hldef{sample_mean} \hlkwb{<-} \hlnum{13.5}
+\hldef{sample_sd} \hlkwb{<-} \hlnum{3}
+\hldef{n} \hlkwb{<-} \hlnum{60}
+\hldef{mu_0} \hlkwb{<-} \hlnum{14}  \hlcom{# Population mean under H0}
+\hldef{alpha1} \hlkwb{<-} \hlnum{0.05}
+\hldef{alpha2} \hlkwb{<-} \hlnum{0.01}
+
+\hlcom{# Performing a one-sample t-test}
+\hldef{test_result} \hlkwb{<-} \hlkwd{tsum.test}\hldef{(}\hlkwc{mean.x} \hldef{= sample_mean,} \hlkwc{s.x} \hldef{= sample_sd,} \hlkwc{n.x} \hldef{= n,}
+                         \hlkwc{mu} \hldef{= mu_0,} \hlkwc{alternative} \hldef{=} \hlsng{"less"}\hldef{,} \hlkwc{conf.level} \hldef{=} \hlnum{1}\hlopt{-}\hldef{alpha1)}
+\end{alltt}
+
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in tsum.test(mean.x = sample\_mean, s.x = sample\_sd, n.x = n, mu = mu\_0, : argument 'var.equal' ignored for one-sample test.}}\begin{alltt}
+\hlkwd{print}\hldef{(test_result)}
+\end{alltt}
+\begin{verbatim}
+## 
+## 	One-sample t-Test
+## 
+## data:  Summarized x
+## t = -1.291, df = 59, p-value = 0.1009
+## alternative hypothesis: true mean is less than 14
+## 95 percent confidence interval:
+##        NA 14.14721
+## sample estimates:
+## mean of x 
+##      13.5
+\end{verbatim}
+\begin{alltt}
+\hlcom{# Compute test statistic manually}
+\hldef{t_stat} \hlkwb{<-} \hldef{test_result}\hlopt{$}\hldef{statistic}
+
+\hlcom{# Compute rejection regions (critical t-values)}
+\hldef{critical_value_05} \hlkwb{<-} \hlkwd{qt}\hldef{(alpha1,} \hlkwc{df} \hldef{= n}\hlopt{-}\hlnum{1}\hldef{,} \hlkwc{lower.tail} \hldef{=} \hlnum{TRUE}\hldef{)}
+\hldef{critical_value_01} \hlkwb{<-} \hlkwd{qt}\hldef{(alpha2,} \hlkwc{df} \hldef{= n}\hlopt{-}\hlnum{1}\hldef{,} \hlkwc{lower.tail} \hldef{=} \hlnum{TRUE}\hldef{)}
+
+\hlkwd{cat}\hldef{(}\hlsng{"Test statistic (t) ="}\hldef{, t_stat,} \hlsng{"\textbackslash{}n"}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## Test statistic (t) = -1.290994
+\end{verbatim}
+\begin{alltt}
+\hlkwd{cat}\hldef{(}\hlsng{"Critical value at alpha = 0.05:"}\hldef{, critical_value_05,} \hlsng{"\textbackslash{}n"}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## Critical value at alpha = 0.05: -1.671093
+\end{verbatim}
+\begin{alltt}
+\hlkwd{cat}\hldef{(}\hlsng{"Critical value at alpha = 0.01:"}\hldef{, critical_value_01,} \hlsng{"\textbackslash{}n"}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## Critical value at alpha = 0.01: -2.391229
+\end{verbatim}
+\begin{alltt}
+\hlcom{# Decision-making}
+\hlkwa{if} \hldef{(t_stat} \hlopt{<} \hldef{critical_value_05) \{}
+  \hlkwd{cat}\hldef{(}\hlsng{"Reject H0 at alpha = 0.05\textbackslash{}n"}\hldef{)}
+\hldef{\}} \hlkwa{else} \hldef{\{}
+  \hlkwd{cat}\hldef{(}\hlsng{"Fail to reject H0 at alpha = 0.05\textbackslash{}n"}\hldef{)}
+\hldef{\}}
+\end{alltt}
+\begin{verbatim}
+## Fail to reject H0 at alpha = 0.05
+\end{verbatim}
+\begin{alltt}
+\hlkwa{if} \hldef{(t_stat} \hlopt{<} \hldef{critical_value_01) \{}
+  \hlkwd{cat}\hldef{(}\hlsng{"Reject H0 at alpha = 0.01\textbackslash{}n"}\hldef{)}
+\hldef{\}} \hlkwa{else} \hldef{\{}
+  \hlkwd{cat}\hldef{(}\hlsng{"Fail to reject H0 at alpha = 0.01\textbackslash{}n"}\hldef{)}
+\hldef{\}}
+\end{alltt}
+\begin{verbatim}
+## Fail to reject H0 at alpha = 0.01
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+Since t = −1.29 is not less than either critical value, we fail to reject H0 at both significance levels.
+
+\section{Question 2}
+
+Null Hypothesis (H0): meanA >= meanB (Company A's drying time is not shorter than Company B's drying time)\\
+Alternative Hypothesis (HA): meanA < meanB (Company A's drying time is shorter than Company B's drying time)
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{library}\hldef{(BSDA)}
+
+\hlcom{# Given summary statistics}
+\hldef{x_bar} \hlkwb{<-} \hlnum{63.5}  \hlcom{# Mean drying time of Company A}
+\hldef{s1} \hlkwb{<-} \hlnum{5.4}      \hlcom{# Standard deviation of Company A}
+\hldef{n1} \hlkwb{<-} \hlnum{45}       \hlcom{# Sample size of Company A}
+
+\hldef{y_bar} \hlkwb{<-} \hlnum{66.2}  \hlcom{# Mean drying time of Company B}
+\hldef{s2} \hlkwb{<-} \hlnum{5.8}      \hlcom{# Standard deviation of Company B}
+\hldef{n2} \hlkwb{<-} \hlnum{60}       \hlcom{# Sample size of Company B}
+
+\hldef{alpha1} \hlkwb{<-} \hlnum{0.05}  \hlcom{# Significance level 1}
+\hldef{alpha2} \hlkwb{<-} \hlnum{0.01}  \hlcom{# Significance level 2}
+
+\hldef{test_result} \hlkwb{<-} \hlkwd{tsum.test}\hldef{(}\hlkwc{mean.x} \hldef{= x_bar,} \hlkwc{s.x} \hldef{= s1,} \hlkwc{n.x} \hldef{= n1,}
+                         \hlkwc{mean.y} \hldef{= y_bar,} \hlkwc{s.y} \hldef{= s2,} \hlkwc{n.y} \hldef{= n2,}
+                         \hlkwc{alternative} \hldef{=} \hlsng{"less"}\hldef{,} \hlkwc{var.equal} \hldef{=} \hlnum{FALSE}\hldef{,} \hlkwc{conf.level} \hldef{=} \hlnum{1} \hlopt{-} \hldef{alpha1)}
+
+\hlkwd{print}\hldef{(test_result)}
+\end{alltt}
+\begin{verbatim}
+## 
+## 	Welch Modified Two-Sample t-Test
+## 
+## data:  Summarized x and y
+## t = -2.4559, df = 98.235, p-value = 0.007905
+## alternative hypothesis: true difference in means is less than 0
+## 95 percent confidence interval:
+##          NA -0.8744421
+## sample estimates:
+## mean of x mean of y 
+##      63.5      66.2
+\end{verbatim}
+\begin{alltt}
+\hlcom{# Extract t-statistic and degrees of freedom}
+\hldef{t_stat} \hlkwb{<-} \hldef{test_result}\hlopt{$}\hldef{statistic}
+\hldef{df} \hlkwb{<-} \hldef{test_result}\hlopt{$}\hldef{parameter}
+
+\hlkwd{cat}\hldef{(}\hlsng{"Test Statistic (t) ="}\hldef{, t_stat,} \hlsng{"\textbackslash{}n"}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## Test Statistic (t) = -2.455899
+\end{verbatim}
+\begin{alltt}
+\hlkwd{cat}\hldef{(}\hlsng{"Degrees of Freedom (df) ="}\hldef{, df,} \hlsng{"\textbackslash{}n"}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## Degrees of Freedom (df) = 98.23525
+\end{verbatim}
+\begin{alltt}
+\hlcom{# Compute critical values for both significance levels}
+\hldef{critical_value_05} \hlkwb{<-} \hlkwd{qt}\hldef{(alpha1,} \hlkwc{df} \hldef{= df,} \hlkwc{lower.tail} \hldef{=} \hlnum{TRUE}\hldef{)}
+\hldef{critical_value_01} \hlkwb{<-} \hlkwd{qt}\hldef{(alpha2,} \hlkwc{df} \hldef{= df,} \hlkwc{lower.tail} \hldef{=} \hlnum{TRUE}\hldef{)}
+
+\hlkwd{cat}\hldef{(}\hlsng{"Critical value at α = 0.05:"}\hldef{, critical_value_05,} \hlsng{"\textbackslash{}n"}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## Critical value at α = 0.05: -1.660513
+\end{verbatim}
+\begin{alltt}
+\hlkwd{cat}\hldef{(}\hlsng{"Critical value at α = 0.01:"}\hldef{, critical_value_01,} \hlsng{"\textbackslash{}n"}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## Critical value at α = 0.01: -2.364908
+\end{verbatim}
+\begin{alltt}
+\hlcom{# Decision-making}
+\hlkwa{if} \hldef{(t_stat} \hlopt{<} \hldef{critical_value_05) \{}
+  \hlkwd{cat}\hldef{(}\hlsng{"Reject H0 at alpha = 0.05: Company A's drying time is significantly shorter.\textbackslash{}n"}\hldef{)}
+\hldef{\}} \hlkwa{else} \hldef{\{}
+  \hlkwd{cat}\hldef{(}\hlsng{"Fail to reject H0 at alpha = 0.05: No significant evidence that Company A's drying time is shorter.\textbackslash{}n"}\hldef{)}
+\hldef{\}}
+\end{alltt}
+\begin{verbatim}
+## Reject H0 at alpha = 0.05: Company A's drying time is significantly shorter.
+\end{verbatim}
+\begin{alltt}
+\hlkwa{if} \hldef{(t_stat} \hlopt{<} \hldef{critical_value_01) \{}
+  \hlkwd{cat}\hldef{(}\hlsng{"Reject H0 at alpha = 0.01: Company A's drying time is significantly shorter.\textbackslash{}n"}\hldef{)}
+\hldef{\}} \hlkwa{else} \hldef{\{}
+  \hlkwd{cat}\hldef{(}\hlsng{"Fail to reject H0 at alpha = 0.01: No significant evidence that Company A's drying time is shorter.\textbackslash{}n"}\hldef{)}
+\hldef{\}}
+\end{alltt}
+\begin{verbatim}
+## Reject H0 at alpha = 0.01: Company A's drying time is significantly shorter.
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+Hence, from the results it is clear that we are rejecting our null hypothesis. And Company A's drying time is indeed shorter.
+
+\section{Question 3}
+
+Null hypothesis (H0): The cure rates are the same.\\
+Alternative hypothesis (HA): The cure rates are different.\\
+
+This is a two tailed test.\\
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{library}\hldef{(BSDA)}
+
+\hlcom{# Data for Drug A and Drug B}
+\hldef{n1} \hlkwb{<-} \hlnum{190}
+\hldef{x1} \hlkwb{<-} \hlnum{100}
+\hldef{n2} \hlkwb{<-} \hlnum{65}
+\hldef{x2} \hlkwb{<-} \hlnum{55}
+
+\hldef{p_hat1} \hlkwb{<-} \hldef{x1} \hlopt{/} \hldef{n1}
+\hldef{p_hat2} \hlkwb{<-} \hldef{x2} \hlopt{/} \hldef{n2}
+\hldef{p_pooled} \hlkwb{<-} \hldef{(x1} \hlopt{+} \hldef{x2)} \hlopt{/} \hldef{(n1} \hlopt{+} \hldef{n2)}
+
+\hlcom{# Calculate z-statistic}
+\hldef{z_stat} \hlkwb{<-} \hldef{(p_hat1} \hlopt{-} \hldef{p_hat2)} \hlopt{/} \hlkwd{sqrt}\hldef{(p_pooled} \hlopt{*} \hldef{(}\hlnum{1} \hlopt{-} \hldef{p_pooled)} \hlopt{*} \hldef{(}\hlnum{1}\hlopt{/}\hldef{n1} \hlopt{+} \hlnum{1}\hlopt{/}\hldef{n2))}
+
+\hldef{critical_value_05} \hlkwb{<-} \hlkwd{qnorm}\hldef{(}\hlnum{1} \hlopt{-} \hlnum{0.05} \hlopt{/} \hlnum{2}\hldef{)}
+\hldef{critical_value_01} \hlkwb{<-} \hlkwd{qnorm}\hldef{(}\hlnum{1} \hlopt{-} \hlnum{0.01} \hlopt{/} \hlnum{2}\hldef{)}
+
+\hlcom{# Print results}
+\hlkwd{cat}\hldef{(}\hlsng{"Test Statistic (z):"}\hldef{, z_stat,} \hlsng{"\textbackslash{}n"}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## Test Statistic (z): -4.558982
+\end{verbatim}
+\begin{alltt}
+\hlkwd{cat}\hldef{(}\hlsng{"Critical Value at alpha = 0.05:"}\hldef{, critical_value_05,} \hlsng{"\textbackslash{}n"}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## Critical Value at alpha = 0.05: 1.959964
+\end{verbatim}
+\begin{alltt}
+\hlkwd{cat}\hldef{(}\hlsng{"Critical Value at alpha = 0.01:"}\hldef{, critical_value_01,} \hlsng{"\textbackslash{}n"}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## Critical Value at alpha = 0.01: 2.575829
+\end{verbatim}
+\begin{alltt}
+\hlkwd{cat}\hldef{(}\hlsng{"At α = 0.05: "}\hldef{,} \hlkwd{ifelse}\hldef{(}\hlkwd{abs}\hldef{(z_stat)} \hlopt{>} \hldef{critical_value_05,} \hlsng{"Reject H0. Cure rates are significantly different."}\hldef{,} \hlsng{"Fail to reject H0. Insufficient evidence.\textbackslash{}n"}\hldef{))}
+\end{alltt}
+\begin{verbatim}
+## At α = 0.05:  Reject H0. Cure rates are significantly different.
+\end{verbatim}
+\begin{alltt}
+\hlkwd{cat}\hldef{(}\hlsng{"At α = 0.01: "}\hldef{,} \hlkwd{ifelse}\hldef{(}\hlkwd{abs}\hldef{(z_stat)} \hlopt{>} \hldef{critical_value_01,} \hlsng{"Reject H0. Cure rates are significantly different."}\hldef{,} \hlsng{"Fail to reject H0. Insufficient evidence.\textbackslash{}n"}\hldef{))}
+\end{alltt}
+\begin{verbatim}
+## At α = 0.01:  Reject H0. Cure rates are significantly different.
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+Hence the data provides enough evidence that the cure rates are different between the two drugs.
+
+\section{Question 4}
+
+Null Hypothesis (H0): Supporters are less than or equal to 65 percent. (p <= 65 percent)\\
+Alternate Hypothesis (HA): Supporters are greater than 65 percent. (p > 65 percent)
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{library}\hldef{(BSDA)}
+
+\hlcom{# Data}
+\hldef{n} \hlkwb{<-} \hlnum{600}
+\hldef{X} \hlkwb{<-} \hlnum{414}
+\hldef{p0} \hlkwb{<-} \hlnum{0.65}
+\hldef{alpha_05} \hlkwb{<-} \hlnum{0.05}
+\hldef{alpha_01} \hlkwb{<-} \hlnum{0.01}
+
+\hldef{p_hat} \hlkwb{<-} \hldef{X} \hlopt{/} \hldef{n}
+\hldef{p_0} \hlkwb{<-} \hlnum{0.65}
+\hldef{SE} \hlkwb{<-} \hlkwd{sqrt}\hldef{(p_0} \hlopt{*} \hldef{(}\hlnum{1} \hlopt{-} \hldef{p_0)} \hlopt{/} \hldef{n)}
+\hldef{Z} \hlkwb{<-} \hldef{(p_hat} \hlopt{-} \hldef{p_0)} \hlopt{/} \hldef{SE}
+
+\hldef{z_alpha1} \hlkwb{<-} \hlkwd{qnorm}\hldef{(}\hlnum{1} \hlopt{-} \hldef{alpha_05)}
+\hldef{z_alpha2} \hlkwb{<-} \hlkwd{qnorm}\hldef{(}\hlnum{1} \hlopt{-} \hldef{alpha_01)}
+
+\hlkwd{cat}\hldef{(}\hlsng{"Sample proportion (p):"}\hldef{, p_hat,} \hlsng{"\textbackslash{}n"}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## Sample proportion (p): 0.69
+\end{verbatim}
+\begin{alltt}
+\hlkwd{cat}\hldef{(}\hlsng{"Calculated Z value:"}\hldef{, Z,} \hlsng{"\textbackslash{}n"}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## Calculated Z value: 2.05421
+\end{verbatim}
+\begin{alltt}
+\hlkwd{cat}\hldef{(}\hlsng{"Critical Z value for alpha 0.05:"}\hldef{, z_alpha1,} \hlsng{"\textbackslash{}n"}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## Critical Z value for alpha 0.05: 1.644854
+\end{verbatim}
+\begin{alltt}
+\hlkwd{cat}\hldef{(}\hlsng{"Critical Z value for alpha 0.01:"}\hldef{, z_alpha2,} \hlsng{"\textbackslash{}n"}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## Critical Z value for alpha 0.01: 2.326348
+\end{verbatim}
+\begin{alltt}
+\hlkwd{cat}\hldef{(}\hlsng{"At α = 0.05: "}\hldef{,} \hlkwd{ifelse}\hldef{(Z} \hlopt{>} \hldef{z_alpha1,} \hlsng{"Reject H0. Support is greater than 65%."}\hldef{,} \hlsng{"Fail to reject H0. Insufficient evidence.\textbackslash{}n"}\hldef{))}
+\end{alltt}
+\begin{verbatim}
+## At α = 0.05:  Reject H0. Support is greater than 65%.
+\end{verbatim}
+\begin{alltt}
+\hlkwd{cat}\hldef{(}\hlsng{"At α = 0.01: "}\hldef{,} \hlkwd{ifelse}\hldef{(Z} \hlopt{>} \hldef{z_alpha2,} \hlsng{"Reject H0. Support is greater than 65%."}\hldef{,} \hlsng{"Fail to reject H0. Insufficient evidence.\textbackslash{}n"}\hldef{))}
+\end{alltt}
+\begin{verbatim}
+## At α = 0.01:  Fail to reject H0. Insufficient evidence.
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+At the 5 percent significance level, there is sufficient evidence to conclude that support for starting schools after Labor Day exceeds 65 percent.\\
+At the 1 percent significance level, there is insufficient evidence to conclude that support exceeds 65 percent.
+     
+     
+
+
+
+
+
+
+\end{document}

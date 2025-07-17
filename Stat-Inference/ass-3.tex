@@ -1,0 +1,519 @@
+\documentclass{article}\usepackage[]{graphicx}\usepackage[]{xcolor}
+% maxwidth is the original width if it is less than linewidth
+% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlsng}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hldef}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+
+
+\begin{center}
+Assignment 3 \\
+Name: Mahaprasad Mohanty \\
+Registration: 24MDT0061 \\
+Course: Statistical Inference \\
+Code: PMDS503P
+Slot: L33+L34
+\end{center}
+
+\section{Question 1}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{library}\hldef{(BSDA)}
+\end{alltt}
+
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: lattice}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# \\\#\# Attaching package: 'BSDA'}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# The following object is masked from 'package:datasets':\\\#\# \\\#\# \ \ \ \ Orange}}\begin{alltt}
+\hldef{brand1} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlnum{10.62}\hldef{,} \hlnum{10.58}\hldef{,} \hlnum{10.33}\hldef{,} \hlnum{10.72}\hldef{,} \hlnum{10.44}\hldef{,} \hlnum{10.74}\hldef{)}
+\hldef{brand2} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlnum{10.50}\hldef{,} \hlnum{10.52}\hldef{,} \hlnum{10.58}\hldef{,} \hlnum{10.62}\hldef{,} \hlnum{10.55}\hldef{,} \hlnum{10.51}\hldef{,} \hlnum{10.53}\hldef{)}
+
+\hlcom{# Null hypothesis (H0): The mean viscosity of the two brands is equal (mean1 = mean2)}
+\hlcom{# Alternative hypothesis (HA): The mean viscosity of the two brands is different (mean1 ≠ mean2)}
+\hlcom{# This is a two-tailed test}
+
+\hldef{alpha1} \hlkwb{<-} \hlnum{0.05}
+\hldef{alpha2} \hlkwb{<-} \hlnum{0.01}
+
+
+\hldef{mean1} \hlkwb{<-} \hlkwd{mean}\hldef{(brand1)}
+\hldef{mean2} \hlkwb{<-} \hlkwd{mean}\hldef{(brand2)}
+\hldef{sd1} \hlkwb{<-} \hlkwd{sd}\hldef{(brand1)}
+\hldef{sd2} \hlkwb{<-} \hlkwd{sd}\hldef{(brand2)}
+\hldef{n1} \hlkwb{<-} \hlkwd{length}\hldef{(brand1)}
+\hldef{n2} \hlkwb{<-} \hlkwd{length}\hldef{(brand2)}
+
+\hldef{test_result} \hlkwb{<-} \hlkwd{tsum.test}\hldef{(}\hlkwc{mean.x} \hldef{= mean1,} \hlkwc{s.x} \hldef{= sd1,} \hlkwc{n.x} \hldef{= n1,}
+                         \hlkwc{mean.y} \hldef{= mean2,} \hlkwc{s.y} \hldef{= sd2,} \hlkwc{n.y} \hldef{= n2,}
+                         \hlkwc{alternative} \hldef{=} \hlsng{"two.sided"}\hldef{,} \hlkwc{var.equal} \hldef{=} \hlnum{TRUE}\hldef{,}
+                         \hlkwc{conf.level} \hldef{=} \hlnum{1} \hlopt{-} \hldef{alpha1)}
+
+\hlkwd{print}\hldef{(test_result)}
+\end{alltt}
+\begin{verbatim}
+## 
+## 	Standard Two-Sample t-Test
+## 
+## data:  Summarized x and y
+## t = 0.4371, df = 11, p-value = 0.6705
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.1104937  0.1652556
+## sample estimates:
+## mean of x mean of y 
+##  10.57167  10.54429
+\end{verbatim}
+\begin{alltt}
+\hldef{t_stat} \hlkwb{<-} \hldef{test_result}\hlopt{$}\hldef{statistic}
+\hldef{df} \hlkwb{<-} \hldef{n1} \hlopt{+} \hldef{n2} \hlopt{-} \hlnum{2}
+
+\hlcom{# Compute critical t-values for two-tailed test}
+\hldef{critical_value_05} \hlkwb{<-} \hlkwd{qt}\hldef{(}\hlnum{1} \hlopt{-} \hldef{alpha1} \hlopt{/} \hlnum{2}\hldef{,} \hlkwc{df} \hldef{= df)}
+\hldef{critical_value_01} \hlkwb{<-} \hlkwd{qt}\hldef{(}\hlnum{1} \hlopt{-} \hldef{alpha2} \hlopt{/} \hlnum{2}\hldef{,} \hlkwc{df} \hldef{= df)}
+
+\hlkwd{cat}\hldef{(}\hlsng{"Test statistic (t) ="}\hldef{, t_stat,} \hlsng{"\textbackslash{}n"}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## Test statistic (t) = 0.4371004
+\end{verbatim}
+\begin{alltt}
+\hlkwd{cat}\hldef{(}\hlsng{"Critical value at alpha = 0.05:"}\hldef{, critical_value_05,} \hlsng{"\textbackslash{}n"}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## Critical value at alpha = 0.05: 2.200985
+\end{verbatim}
+\begin{alltt}
+\hlkwd{cat}\hldef{(}\hlsng{"Critical value at alpha = 0.01:"}\hldef{, critical_value_01,} \hlsng{"\textbackslash{}n"}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## Critical value at alpha = 0.01: 3.105807
+\end{verbatim}
+\begin{alltt}
+\hlkwa{if} \hldef{(}\hlkwd{abs}\hldef{(t_stat)} \hlopt{>} \hldef{critical_value_05) \{}
+  \hlkwd{cat}\hldef{(}\hlsng{"Reject H0 at alpha = 0.05\textbackslash{}n"}\hldef{)}
+\hldef{\}} \hlkwa{else} \hldef{\{}
+  \hlkwd{cat}\hldef{(}\hlsng{"Fail to reject H0 at alpha = 0.05\textbackslash{}n"}\hldef{)}
+\hldef{\}}
+\end{alltt}
+\begin{verbatim}
+## Fail to reject H0 at alpha = 0.05
+\end{verbatim}
+\begin{alltt}
+\hlkwa{if} \hldef{(}\hlkwd{abs}\hldef{(t_stat)} \hlopt{>} \hldef{critical_value_01) \{}
+  \hlkwd{cat}\hldef{(}\hlsng{"Reject H0 at alpha = 0.01\textbackslash{}n"}\hldef{)}
+\hldef{\}} \hlkwa{else} \hldef{\{}
+  \hlkwd{cat}\hldef{(}\hlsng{"Fail to reject H0 at alpha = 0.01\textbackslash{}n"}\hldef{)}
+\hldef{\}}
+\end{alltt}
+\begin{verbatim}
+## Fail to reject H0 at alpha = 0.01
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+In the above question, we fail to reject the null hypothesis in both the cases of significance level of 0.05 and 0.01.
+
+
+\section{Question 2}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{library}\hldef{(BSDA)}
+
+
+\hldef{before} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlnum{1280}\hldef{,} \hlnum{1200}\hldef{,} \hlnum{1050}\hldef{,} \hlnum{1190}\hldef{,} \hlnum{1250}\hldef{,} \hlnum{1290}\hldef{,} \hlnum{1220}\hldef{,} \hlnum{1270}\hldef{,} \hlnum{1260}\hldef{)}
+\hldef{after} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlnum{1380}\hldef{,} \hlnum{1310}\hldef{,} \hlnum{1090}\hldef{,} \hlnum{1240}\hldef{,} \hlnum{1290}\hldef{,} \hlnum{1360}\hldef{,} \hlnum{1270}\hldef{,} \hlnum{1330}\hldef{,} \hlnum{1310}\hldef{)}
+
+\hlcom{# Null hypothesis (H0): The mean increase in SAT scores is 50 (mean difference = 50)}
+\hlcom{# Alternative hypothesis (HA): The mean increase in SAT scores is greater than 50 (mean difference > 50)}
+
+\hlcom{# This is a right-tailed test}
+
+\hldef{alpha1} \hlkwb{<-} \hlnum{0.05}
+\hldef{alpha2} \hlkwb{<-} \hlnum{0.10}
+\hldef{mu_0} \hlkwb{<-} \hlnum{50}
+
+\hldef{differences} \hlkwb{<-} \hldef{after} \hlopt{-} \hldef{before}
+
+
+\hldef{mean_diff} \hlkwb{<-} \hlkwd{mean}\hldef{(differences)}
+\hldef{sd_diff} \hlkwb{<-} \hlkwd{sd}\hldef{(differences)}
+\hldef{n} \hlkwb{<-} \hlkwd{length}\hldef{(differences)}
+
+\hldef{test_result} \hlkwb{<-} \hlkwd{tsum.test}\hldef{(}\hlkwc{mean.x} \hldef{= mean_diff,} \hlkwc{s.x} \hldef{= sd_diff,} \hlkwc{n.x} \hldef{= n,}
+                         \hlkwc{mu} \hldef{= mu_0,} \hlkwc{alternative} \hldef{=} \hlsng{"greater"}\hldef{,} \hlkwc{conf.level} \hldef{=} \hlnum{1} \hlopt{-} \hldef{alpha1)}
+\end{alltt}
+
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in tsum.test(mean.x = mean\_diff, s.x = sd\_diff, n.x = n, mu = mu\_0, : argument 'var.equal' ignored for one-sample test.}}\begin{alltt}
+\hlkwd{print}\hldef{(test_result)}
+\end{alltt}
+\begin{verbatim}
+## 
+## 	One-sample t-Test
+## 
+## data:  Summarized x
+## t = 1.5689, df = 8, p-value = 0.07765
+## alternative hypothesis: true mean is greater than 50
+## 95 percent confidence interval:
+##  47.53021       NA
+## sample estimates:
+## mean of x 
+##  63.33333
+\end{verbatim}
+\begin{alltt}
+\hldef{t_stat} \hlkwb{<-} \hldef{test_result}\hlopt{$}\hldef{statistic}
+
+
+\hldef{critical_value_05} \hlkwb{<-} \hlkwd{qt}\hldef{(}\hlnum{1} \hlopt{-} \hldef{alpha1,} \hlkwc{df} \hldef{= n}\hlopt{-}\hlnum{1}\hldef{)}
+\hldef{critical_value_10} \hlkwb{<-} \hlkwd{qt}\hldef{(}\hlnum{1} \hlopt{-} \hldef{alpha2,} \hlkwc{df} \hldef{= n}\hlopt{-}\hlnum{1}\hldef{)}
+
+\hlkwd{cat}\hldef{(}\hlsng{"Test statistic (t) ="}\hldef{, t_stat,} \hlsng{"\textbackslash{}n"}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## Test statistic (t) = 1.568929
+\end{verbatim}
+\begin{alltt}
+\hlkwd{cat}\hldef{(}\hlsng{"Critical value at alpha = 0.05:"}\hldef{, critical_value_05,} \hlsng{"\textbackslash{}n"}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## Critical value at alpha = 0.05: 1.859548
+\end{verbatim}
+\begin{alltt}
+\hlkwd{cat}\hldef{(}\hlsng{"Critical value at alpha = 0.10:"}\hldef{, critical_value_10,} \hlsng{"\textbackslash{}n"}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## Critical value at alpha = 0.10: 1.396815
+\end{verbatim}
+\begin{alltt}
+\hlkwa{if} \hldef{(t_stat} \hlopt{>} \hldef{critical_value_05) \{}
+  \hlkwd{cat}\hldef{(}\hlsng{"Reject H0 at alpha = 0.05\textbackslash{}n"}\hldef{)}
+\hldef{\}} \hlkwa{else} \hldef{\{}
+  \hlkwd{cat}\hldef{(}\hlsng{"Fail to reject H0 at alpha = 0.05\textbackslash{}n"}\hldef{)}
+\hldef{\}}
+\end{alltt}
+\begin{verbatim}
+## Fail to reject H0 at alpha = 0.05
+\end{verbatim}
+\begin{alltt}
+\hlkwa{if} \hldef{(t_stat} \hlopt{>} \hldef{critical_value_10) \{}
+  \hlkwd{cat}\hldef{(}\hlsng{"Reject H0 at alpha = 0.10\textbackslash{}n"}\hldef{)}
+\hldef{\}} \hlkwa{else} \hldef{\{}
+  \hlkwd{cat}\hldef{(}\hlsng{"Fail to reject H0 at alpha = 0.10\textbackslash{}n"}\hldef{)}
+\hldef{\}}
+\end{alltt}
+\begin{verbatim}
+## Reject H0 at alpha = 0.10
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+In the above question, we fail to reject the null hypothesis for 0.05 significance level wherease reject the null hypothesis at 0.1 level.
+
+
+\section{Question 3}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{library}\hldef{(BSDA)}
+
+\hldef{coast1} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlnum{18.8}\hldef{,} \hlnum{20.5}\hldef{,} \hlnum{20.0}\hldef{,} \hlnum{21.0}\hldef{,} \hlnum{17.8}\hldef{,} \hlnum{18.2}\hldef{,} \hlnum{17.8}\hldef{,} \hlnum{19.5}\hldef{,} \hlnum{20.0}\hldef{,} \hlnum{18.2}\hldef{,} \hlnum{18.4}\hldef{,} \hlnum{19.8}\hldef{,} \hlnum{19.8}\hldef{,} \hlnum{20.3}\hldef{,} \hlnum{19.0}\hldef{)}
+\hldef{coast2} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlnum{19.8}\hldef{,} \hlnum{21.0}\hldef{,} \hlnum{20.0}\hldef{,} \hlnum{19.5}\hldef{,} \hlnum{18.9}\hldef{,} \hlnum{18.0}\hldef{,} \hlnum{18.5}\hldef{,} \hlnum{18.2}\hldef{,} \hlnum{20.2}\hldef{,} \hlnum{19.0}\hldef{,} \hlnum{19.2}\hldef{,} \hlnum{20.2}\hldef{,} \hlnum{19.2}\hldef{,} \hlnum{17.0}\hldef{,} \hlnum{18.8}\hldef{,}\hlnum{17.6}\hldef{,} \hlnum{18.3}\hldef{,} \hlnum{19.6}\hldef{,} \hlnum{20.2}\hldef{,} \hlnum{18.4}\hldef{)}
+
+\hlcom{# Null hypothesis (H0): Variability in fish size at both coasts is the same (σ1² = σ2²)}
+\hlcom{# Alternative hypothesis (HA): Variability in fish size is different (σ1² ≠ σ2²)}
+
+\hlcom{# This is a two-tailed test}
+
+\hldef{alpha1} \hlkwb{<-} \hlnum{0.05}
+\hldef{alpha2} \hlkwb{<-} \hlnum{0.01}
+
+
+\hldef{var_coast1} \hlkwb{<-} \hlkwd{var}\hldef{(coast1)}
+\hldef{var_coast2} \hlkwb{<-} \hlkwd{var}\hldef{(coast2)}
+
+\hldef{test_result} \hlkwb{<-} \hlkwd{var.test}\hldef{(coast1, coast2,} \hlkwc{alternative} \hldef{=} \hlsng{"two.sided"}\hldef{,} \hlkwc{conf.level} \hldef{=} \hlnum{1} \hlopt{-} \hldef{alpha1)}
+\hlkwd{print}\hldef{(test_result)}
+\end{alltt}
+\begin{verbatim}
+## 
+## 	F test to compare two variances
+## 
+## data:  coast1 and coast2
+## F = 1.0499, num df = 14, denom df = 19, p-value = 0.9031
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 95 percent confidence interval:
+##  0.3966568 3.0035342
+## sample estimates:
+## ratio of variances 
+##           1.049922
+\end{verbatim}
+\begin{alltt}
+\hldef{f_stat} \hlkwb{<-} \hldef{test_result}\hlopt{$}\hldef{statistic}
+
+
+\hldef{critical_value_05_low} \hlkwb{<-} \hlkwd{qf}\hldef{(alpha1} \hlopt{/} \hlnum{2}\hldef{,} \hlkwc{df1} \hldef{=} \hlkwd{length}\hldef{(coast1)} \hlopt{-} \hlnum{1}\hldef{,} \hlkwc{df2} \hldef{=} \hlkwd{length}\hldef{(coast2)} \hlopt{-} \hlnum{1}\hldef{,} \hlkwc{lower.tail} \hldef{=} \hlnum{TRUE}\hldef{)}
+\hldef{critical_value_05_high} \hlkwb{<-} \hlkwd{qf}\hldef{(}\hlnum{1} \hlopt{-} \hldef{alpha1} \hlopt{/} \hlnum{2}\hldef{,} \hlkwc{df1} \hldef{=} \hlkwd{length}\hldef{(coast1)} \hlopt{-} \hlnum{1}\hldef{,} \hlkwc{df2} \hldef{=} \hlkwd{length}\hldef{(coast2)} \hlopt{-} \hlnum{1}\hldef{,} \hlkwc{lower.tail} \hldef{=} \hlnum{TRUE}\hldef{)}
+
+\hldef{critical_value_01_low} \hlkwb{<-} \hlkwd{qf}\hldef{(alpha2} \hlopt{/} \hlnum{2}\hldef{,} \hlkwc{df1} \hldef{=} \hlkwd{length}\hldef{(coast1)} \hlopt{-} \hlnum{1}\hldef{,} \hlkwc{df2} \hldef{=} \hlkwd{length}\hldef{(coast2)} \hlopt{-} \hlnum{1}\hldef{,} \hlkwc{lower.tail} \hldef{=} \hlnum{TRUE}\hldef{)}
+\hldef{critical_value_01_high} \hlkwb{<-} \hlkwd{qf}\hldef{(}\hlnum{1} \hlopt{-} \hldef{alpha2} \hlopt{/} \hlnum{2}\hldef{,} \hlkwc{df1} \hldef{=} \hlkwd{length}\hldef{(coast1)} \hlopt{-} \hlnum{1}\hldef{,} \hlkwc{df2} \hldef{=} \hlkwd{length}\hldef{(coast2)} \hlopt{-} \hlnum{1}\hldef{,} \hlkwc{lower.tail} \hldef{=} \hlnum{TRUE}\hldef{)}
+
+\hlkwd{cat}\hldef{(}\hlsng{"Test statistic (F) ="}\hldef{, f_stat,} \hlsng{"\textbackslash{}n"}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## Test statistic (F) = 1.049922
+\end{verbatim}
+\begin{alltt}
+\hlkwd{cat}\hldef{(}\hlsng{"Critical values at alpha = 0.05:"}\hldef{, critical_value_05_low,} \hlsng{"and"}\hldef{, critical_value_05_high,} \hlsng{"\textbackslash{}n"}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## Critical values at alpha = 0.05: 0.3495622 and 2.646928
+\end{verbatim}
+\begin{alltt}
+\hlkwd{cat}\hldef{(}\hlsng{"Critical values at alpha = 0.01:"}\hldef{, critical_value_01_low,} \hlsng{"and"}\hldef{, critical_value_01_high,} \hlsng{"\textbackslash{}n"}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## Critical values at alpha = 0.01: 0.2445719 and 3.637756
+\end{verbatim}
+\begin{alltt}
+\hlkwa{if} \hldef{(f_stat} \hlopt{<} \hldef{critical_value_05_low} \hlopt{||} \hldef{f_stat} \hlopt{>} \hldef{critical_value_05_high) \{}
+  \hlkwd{cat}\hldef{(}\hlsng{"Reject H0 at alpha = 0.05\textbackslash{}n"}\hldef{)}
+\hldef{\}} \hlkwa{else} \hldef{\{}
+  \hlkwd{cat}\hldef{(}\hlsng{"Fail to reject H0 at alpha = 0.05\textbackslash{}n"}\hldef{)}
+\hldef{\}}
+\end{alltt}
+\begin{verbatim}
+## Fail to reject H0 at alpha = 0.05
+\end{verbatim}
+\begin{alltt}
+\hlkwa{if} \hldef{(f_stat} \hlopt{<} \hldef{critical_value_01_low} \hlopt{||} \hldef{f_stat} \hlopt{>} \hldef{critical_value_01_high) \{}
+  \hlkwd{cat}\hldef{(}\hlsng{"Reject H0 at alpha = 0.01\textbackslash{}n"}\hldef{)}
+\hldef{\}} \hlkwa{else} \hldef{\{}
+  \hlkwd{cat}\hldef{(}\hlsng{"Fail to reject H0 at alpha = 0.01\textbackslash{}n"}\hldef{)}
+\hldef{\}}
+\end{alltt}
+\begin{verbatim}
+## Fail to reject H0 at alpha = 0.01
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+In the above question, we fail to reject the null hypothesis at both the significance levels of 0.05 and 0.01.
+
+
+\section{Question 4}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{library}\hldef{(BSDA)}
+
+\hlcom{# Given data: Breakdown counts for different machines and shifts}
+\hldef{breakdown_matrix} \hlkwb{<-} \hlkwd{matrix}\hldef{(}\hlkwd{c}\hldef{(}\hlnum{41}\hldef{,} \hlnum{20}\hldef{,} \hlnum{12}\hldef{,} \hlnum{16}\hldef{,}
+                             \hlnum{31}\hldef{,} \hlnum{11}\hldef{,} \hlnum{9}\hldef{,} \hlnum{14}\hldef{,}
+                             \hlnum{15}\hldef{,} \hlnum{17}\hldef{,} \hlnum{16}\hldef{,} \hlnum{10}\hldef{),}
+                           \hlkwc{nrow} \hldef{=} \hlnum{3}\hldef{,} \hlkwc{byrow} \hldef{=} \hlnum{TRUE}\hldef{)}
+\hlkwd{rownames}\hldef{(breakdown_matrix)} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlsng{"Shift 1"}\hldef{,} \hlsng{"Shift 2"}\hldef{,} \hlsng{"Shift 3"}\hldef{)}
+\hlkwd{colnames}\hldef{(breakdown_matrix)} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlsng{"Machine A"}\hldef{,} \hlsng{"Machine B"}\hldef{,} \hlsng{"Machine C"}\hldef{,} \hlsng{"Machine D"}\hldef{)}
+
+\hlcom{# Null hypothesis (H0): Breakdowns are independent of the shift}
+\hlcom{# Alternative hypothesis (HA): Breakdowns are dependent on the shift}
+
+
+\hldef{test_result} \hlkwb{<-} \hlkwd{chisq.test}\hldef{(breakdown_matrix,} \hlkwc{correct} \hldef{=} \hlnum{FALSE}\hldef{)}
+
+\hlkwd{print}\hldef{(test_result)}
+\end{alltt}
+\begin{verbatim}
+## 
+## 	Pearson's Chi-squared test
+## 
+## data:  breakdown_matrix
+## X-squared = 11.649, df = 6, p-value = 0.07027
+\end{verbatim}
+\begin{alltt}
+\hldef{chi_sq_stat} \hlkwb{<-} \hldef{test_result}\hlopt{$}\hldef{statistic}
+\hldef{p_value} \hlkwb{<-} \hldef{test_result}\hlopt{$}\hldef{p.value}
+
+\hldef{chi_sq_stat} \hlkwb{<-} \hldef{test_result}\hlopt{$}\hldef{statistic}
+\hldef{p_value} \hlkwb{<-} \hldef{test_result}\hlopt{$}\hldef{p.value}
+
+
+\hldef{alpha1} \hlkwb{<-} \hlnum{0.05}
+\hldef{alpha2} \hlkwb{<-} \hlnum{0.01}
+\hldef{df} \hlkwb{<-} \hldef{(}\hlkwd{nrow}\hldef{(breakdown_matrix)} \hlopt{-} \hlnum{1}\hldef{)} \hlopt{*} \hldef{(}\hlkwd{ncol}\hldef{(breakdown_matrix)} \hlopt{-} \hlnum{1}\hldef{)}  \hlcom{# Degrees of freedom}
+
+\hldef{critical_value_05} \hlkwb{<-} \hlkwd{qchisq}\hldef{(}\hlnum{1} \hlopt{-} \hldef{alpha1, df)}
+\hldef{critical_value_01} \hlkwb{<-} \hlkwd{qchisq}\hldef{(}\hlnum{1} \hlopt{-} \hldef{alpha2, df)}
+
+\hlkwd{cat}\hldef{(}\hlsng{"Test statistic (Chi-Square) ="}\hldef{, chi_sq_stat,} \hlsng{"\textbackslash{}n"}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## Test statistic (Chi-Square) = 11.64909
+\end{verbatim}
+\begin{alltt}
+\hlkwd{cat}\hldef{(}\hlsng{"P-value ="}\hldef{, p_value,} \hlsng{"\textbackslash{}n"}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## P-value = 0.07027104
+\end{verbatim}
+\begin{alltt}
+\hlkwd{cat}\hldef{(}\hlsng{"Critical value at alpha = 0.05:"}\hldef{, critical_value_05,} \hlsng{"\textbackslash{}n"}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## Critical value at alpha = 0.05: 12.59159
+\end{verbatim}
+\begin{alltt}
+\hlkwd{cat}\hldef{(}\hlsng{"Critical value at alpha = 0.01:"}\hldef{, critical_value_01,} \hlsng{"\textbackslash{}n"}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## Critical value at alpha = 0.01: 16.81189
+\end{verbatim}
+\begin{alltt}
+\hlkwa{if} \hldef{(chi_sq_stat} \hlopt{>} \hldef{critical_value_05) \{}
+  \hlkwd{cat}\hldef{(}\hlsng{"Reject H0 at alpha = 0.05\textbackslash{}n"}\hldef{)}
+\hldef{\}} \hlkwa{else} \hldef{\{}
+  \hlkwd{cat}\hldef{(}\hlsng{"Fail to reject H0 at alpha = 0.05\textbackslash{}n"}\hldef{)}
+\hldef{\}}
+\end{alltt}
+\begin{verbatim}
+## Fail to reject H0 at alpha = 0.05
+\end{verbatim}
+\begin{alltt}
+\hlkwa{if} \hldef{(chi_sq_stat} \hlopt{>} \hldef{critical_value_01) \{}
+  \hlkwd{cat}\hldef{(}\hlsng{"Reject H0 at alpha = 0.01\textbackslash{}n"}\hldef{)}
+\hldef{\}} \hlkwa{else} \hldef{\{}
+  \hlkwd{cat}\hldef{(}\hlsng{"Fail to reject H0 at alpha = 0.01\textbackslash{}n"}\hldef{)}
+\hldef{\}}
+\end{alltt}
+\begin{verbatim}
+## Fail to reject H0 at alpha = 0.01
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+In the above question, we fail to reject the null hypothesis at both the significance levels of 0.05 and 0.01.
+
+\section{Question 5}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{library}\hldef{(BSDA)}
+
+\hldef{x} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlnum{0}\hldef{,} \hlnum{1}\hldef{,} \hlnum{2}\hldef{,} \hlnum{3}\hldef{,} \hlnum{4}\hldef{)}
+\hldef{f_obs} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlnum{24}\hldef{,} \hlnum{30}\hldef{,} \hlnum{31}\hldef{,} \hlnum{11}\hldef{,} \hlnum{6}\hldef{)}
+
+\hldef{lambda_hat} \hlkwb{<-} \hlkwd{sum}\hldef{(x} \hlopt{*} \hldef{f_obs)} \hlopt{/} \hlkwd{sum}\hldef{(f_obs)}
+
+
+\hldef{p_exp} \hlkwb{<-} \hlkwd{dpois}\hldef{(x, lambda_hat)}
+
+
+\hldef{f_exp} \hlkwb{<-} \hlkwd{round}\hldef{(p_exp} \hlopt{*} \hlkwd{sum}\hldef{(f_obs))}
+
+\hldef{test_result} \hlkwb{<-} \hlkwd{chisq.test}\hldef{(f_obs,} \hlkwc{p} \hldef{= p_exp,} \hlkwc{rescale.p} \hldef{=} \hlnum{TRUE}\hldef{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in chisq.test(f\_obs, p = p\_exp, rescale.p = TRUE): Chi-squared approximation may be incorrect}}\begin{alltt}
+\hlkwd{print}\hldef{(test_result)}
+\end{alltt}
+\begin{verbatim}
+## 
+## 	Chi-squared test for given probabilities
+## 
+## data:  f_obs
+## X-squared = 2.4898, df = 4, p-value = 0.6465
+\end{verbatim}
+\begin{alltt}
+\hldef{chi_sq_stat} \hlkwb{<-} \hldef{test_result}\hlopt{$}\hldef{statistic}
+\hldef{p_value} \hlkwb{<-} \hldef{test_result}\hlopt{$}\hldef{p.value}
+
+
+\hldef{alpha} \hlkwb{<-} \hlnum{0.05}
+\hldef{df} \hlkwb{<-} \hlkwd{length}\hldef{(x)} \hlopt{-} \hlnum{1} \hlopt{-} \hlnum{1}
+
+\hldef{critical_value} \hlkwb{<-} \hlkwd{qchisq}\hldef{(}\hlnum{1} \hlopt{-} \hldef{alpha, df)}
+
+\hlkwd{cat}\hldef{(}\hlsng{"Test statistic (Chi-Square) ="}\hldef{, chi_sq_stat,} \hlsng{"\textbackslash{}n"}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## Test statistic (Chi-Square) = 2.489796
+\end{verbatim}
+\begin{alltt}
+\hlkwd{cat}\hldef{(}\hlsng{"P-value ="}\hldef{, p_value,} \hlsng{"\textbackslash{}n"}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## P-value = 0.6464638
+\end{verbatim}
+\begin{alltt}
+\hlkwd{cat}\hldef{(}\hlsng{"Critical value at alpha = 0.05:"}\hldef{, critical_value,} \hlsng{"\textbackslash{}n"}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## Critical value at alpha = 0.05: 7.814728
+\end{verbatim}
+\begin{alltt}
+\hlkwa{if} \hldef{(chi_sq_stat} \hlopt{>} \hldef{critical_value) \{}
+  \hlkwd{cat}\hldef{(}\hlsng{"Reject H0 at alpha = 0.05\textbackslash{}n"}\hldef{)}
+\hldef{\}} \hlkwa{else} \hldef{\{}
+  \hlkwd{cat}\hldef{(}\hlsng{"Fail to reject H0 at alpha = 0.05\textbackslash{}n"}\hldef{)}
+\hldef{\}}
+\end{alltt}
+\begin{verbatim}
+## Fail to reject H0 at alpha = 0.05
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+Given the p-value is not less than 0.05, the data fits the poisson distribution.
+
+\end{document}

@@ -1,0 +1,198 @@
+\documentclass{article}
+
+\begin{document}
+
+
+\begin{center}
+Assignment 2 \\
+Name: Mahaprasad Mohanty \\
+Registration: 24MDT0061 \\
+Course: Statistical Inference \\
+Code: PMDS503P
+Slot: L33+L34
+\end{center}
+
+\section{Question 1}
+<<>>=
+library(BSDA)
+
+# Null hypothesis(H0): new medication does not reduce recovery time. (mean = 14)
+# Alternative hypthesis (HA): medication reduces recovery time. (mean < 14)
+
+# This is a left-tailed test
+
+sample_mean <- 13.5
+sample_sd <- 3
+n <- 60
+mu_0 <- 14  # Population mean under H0
+alpha1 <- 0.05
+alpha2 <- 0.01
+
+# Performing a one-sample t-test
+test_result <- tsum.test(mean.x = sample_mean, s.x = sample_sd, n.x = n, 
+                         mu = mu_0, alternative = "less", conf.level = 1-alpha1)
+
+print(test_result)
+
+# Compute test statistic manually
+t_stat <- test_result$statistic
+
+# Compute rejection regions (critical t-values)
+critical_value_05 <- qt(alpha1, df = n-1, lower.tail = TRUE)
+critical_value_01 <- qt(alpha2, df = n-1, lower.tail = TRUE)
+
+cat("Test statistic (t) =", t_stat, "\n")
+cat("Critical value at alpha = 0.05:", critical_value_05, "\n")
+cat("Critical value at alpha = 0.01:", critical_value_01, "\n")
+
+# Decision-making
+if (t_stat < critical_value_05) {
+  cat("Reject H0 at alpha = 0.05\n")
+} else {
+  cat("Fail to reject H0 at alpha = 0.05\n")
+}
+
+if (t_stat < critical_value_01) {
+  cat("Reject H0 at alpha = 0.01\n")
+} else {
+  cat("Fail to reject H0 at alpha = 0.01\n")
+}
+
+@
+Since t = −1.29 is not less than either critical value, we fail to reject H0 at both significance levels.
+
+\section{Question 2}
+
+Null Hypothesis (H0): meanA >= meanB (Company A's drying time is not shorter than Company B's drying time)\\
+Alternative Hypothesis (HA): meanA < meanB (Company A's drying time is shorter than Company B's drying time)
+
+<<>>=
+library(BSDA)
+
+# Given summary statistics
+x_bar <- 63.5  # Mean drying time of Company A
+s1 <- 5.4      # Standard deviation of Company A
+n1 <- 45       # Sample size of Company A
+
+y_bar <- 66.2  # Mean drying time of Company B
+s2 <- 5.8      # Standard deviation of Company B
+n2 <- 60       # Sample size of Company B
+
+alpha1 <- 0.05  # Significance level 1
+alpha2 <- 0.01  # Significance level 2
+
+test_result <- tsum.test(mean.x = x_bar, s.x = s1, n.x = n1, 
+                         mean.y = y_bar, s.y = s2, n.y = n2, 
+                         alternative = "less", var.equal = FALSE, conf.level = 1 - alpha1)
+
+print(test_result)
+
+# Extract t-statistic and degrees of freedom
+t_stat <- test_result$statistic
+df <- test_result$parameter
+
+cat("Test Statistic (t) =", t_stat, "\n")
+cat("Degrees of Freedom (df) =", df, "\n")
+
+# Compute critical values for both significance levels
+critical_value_05 <- qt(alpha1, df = df, lower.tail = TRUE)
+critical_value_01 <- qt(alpha2, df = df, lower.tail = TRUE)
+
+cat("Critical value at α = 0.05:", critical_value_05, "\n")
+cat("Critical value at α = 0.01:", critical_value_01, "\n")
+
+# Decision-making
+if (t_stat < critical_value_05) {
+  cat("Reject H0 at alpha = 0.05: Company A's drying time is significantly shorter.\n")
+} else {
+  cat("Fail to reject H0 at alpha = 0.05: No significant evidence that Company A's drying time is shorter.\n")
+}
+
+if (t_stat < critical_value_01) {
+  cat("Reject H0 at alpha = 0.01: Company A's drying time is significantly shorter.\n")
+} else {
+  cat("Fail to reject H0 at alpha = 0.01: No significant evidence that Company A's drying time is shorter.\n")
+}
+
+@
+Hence, from the results it is clear that we are rejecting our null hypothesis. And Company A's drying time is indeed shorter.
+
+\section{Question 3}
+
+Null hypothesis (H0): The cure rates are the same.\\
+Alternative hypothesis (HA): The cure rates are different.\\
+
+This is a two tailed test.\\
+<<>>=
+library(BSDA)
+
+# Data for Drug A and Drug B
+n1 <- 190
+x1 <- 100 
+n2 <- 65   
+x2 <- 55   
+
+p_hat1 <- x1 / n1  
+p_hat2 <- x2 / n2  
+p_pooled <- (x1 + x2) / (n1 + n2)  
+
+# Calculate z-statistic
+z_stat <- (p_hat1 - p_hat2) / sqrt(p_pooled * (1 - p_pooled) * (1/n1 + 1/n2))
+
+critical_value_05 <- qnorm(1 - 0.05 / 2)  
+critical_value_01 <- qnorm(1 - 0.01 / 2)  
+
+# Print results
+cat("Test Statistic (z):", z_stat, "\n")
+cat("Critical Value at alpha = 0.05:", critical_value_05, "\n")
+cat("Critical Value at alpha = 0.01:", critical_value_01, "\n")
+
+cat("At α = 0.05: ", ifelse(abs(z_stat) > critical_value_05, "Reject H0. Cure rates are significantly different.", "Fail to reject H0. Insufficient evidence.\n"))
+cat("At α = 0.01: ", ifelse(abs(z_stat) > critical_value_01, "Reject H0. Cure rates are significantly different.", "Fail to reject H0. Insufficient evidence.\n"))
+@
+
+Hence the data provides enough evidence that the cure rates are different between the two drugs.
+
+\section{Question 4}
+
+Null Hypothesis (H0): Supporters are less than or equal to 65 percent. (p <= 65 percent)\\
+Alternate Hypothesis (HA): Supporters are greater than 65 percent. (p > 65 percent)
+
+<<>>=
+library(BSDA)
+
+# Data
+n <- 600           
+X <- 414           
+p0 <- 0.65        
+alpha_05 <- 0.05   
+alpha_01 <- 0.01   
+
+p_hat <- X / n
+p_0 <- 0.65
+SE <- sqrt(p_0 * (1 - p_0) / n)
+Z <- (p_hat - p_0) / SE
+
+z_alpha1 <- qnorm(1 - alpha_05)
+z_alpha2 <- qnorm(1 - alpha_01)
+
+cat("Sample proportion (p):", p_hat, "\n")
+cat("Calculated Z value:", Z, "\n")
+cat("Critical Z value for alpha 0.05:", z_alpha1, "\n")
+cat("Critical Z value for alpha 0.01:", z_alpha2, "\n")
+
+cat("At α = 0.05: ", ifelse(Z > z_alpha1, "Reject H0. Support is greater than 65%.", "Fail to reject H0. Insufficient evidence.\n"))
+cat("At α = 0.01: ", ifelse(Z > z_alpha2, "Reject H0. Support is greater than 65%.", "Fail to reject H0. Insufficient evidence.\n"))
+
+@
+At the 5 percent significance level, there is sufficient evidence to conclude that support for starting schools after Labor Day exceeds 65 percent.\\
+At the 1 percent significance level, there is insufficient evidence to conclude that support exceeds 65 percent.
+     
+     
+
+
+
+
+
+
+\end{document}

@@ -1,0 +1,225 @@
+\documentclass{article}\usepackage[]{graphicx}\usepackage[]{xcolor}
+% maxwidth is the original width if it is less than linewidth
+% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlsng}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hldef}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+
+
+\begin{center}
+Assignment 4 \\
+Name: Mahaprasad Mohanty \\
+Registration: 24MDT0061 \\
+Course: Statistical Inference \\
+Code: PMDS503P
+Slot: L33+L34
+\end{center}
+
+\section{Question 1}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# part a}
+
+\hldef{N} \hlkwb{<-} \hlnum{140}
+\hldef{D} \hlkwb{<-} \hlnum{20}
+\hldef{n} \hlkwb{<-} \hlnum{20}
+
+\hlcom{# Probability of 0 defective cards}
+\hldef{P_X_0} \hlkwb{<-} \hlkwd{phyper}\hldef{(}\hlnum{0}\hldef{, D, N}\hlopt{-}\hldef{D, n,} \hlkwc{lower.tail} \hldef{=} \hlnum{FALSE}\hldef{)}
+
+
+\hlcom{# Probability of at least 1 defective card}
+\hldef{P_X_at_least_1} \hlkwb{<-} \hlnum{1} \hlopt{-} \hldef{P_X_0}
+
+\hlkwd{cat}\hldef{(}\hlsng{"Probability of atleast 1 defective if 20 cards are defective is"}\hldef{, P_X_at_least_1)}
+\end{alltt}
+\begin{verbatim}
+## Probability of atleast 1 defective if 20 cards are defective is 0.03561837
+\end{verbatim}
+\begin{alltt}
+\hlcom{# part b}
+
+\hldef{N} \hlkwb{<-} \hlnum{140}
+\hldef{D} \hlkwb{<-} \hlnum{5}
+\hldef{n} \hlkwb{<-} \hlnum{20}
+
+\hlcom{# Probability of 0 defective cards}
+\hldef{P_X_0} \hlkwb{<-} \hlkwd{phyper}\hldef{(}\hlnum{0}\hldef{, D, N}\hlopt{-}\hldef{D, n,} \hlkwc{lower.tail} \hldef{=} \hlnum{FALSE}\hldef{)}
+
+\hlcom{# Probability of at least 1 defective card}
+\hldef{P_X_at_least_1} \hlkwb{<-} \hlnum{1} \hlopt{-} \hldef{P_X_0}
+\hlkwd{cat}\hldef{(}\hlsng{"Probability of atleast 1 defective card if 5 cards are defective is"}\hldef{, P_X_at_least_1)}
+\end{alltt}
+\begin{verbatim}
+## Probability of atleast 1 defective card if 5 cards are defective is 0.4570594
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\section{Question 2}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# part a}
+
+
+\hlcom{# Mean rate for 8 hours}
+\hldef{lambda_8} \hlkwb{<-} \hlnum{0.02} \hlopt{*} \hlnum{8}
+
+\hlcom{# Probability of 0 failures}
+\hldef{P_X_0} \hlkwb{<-} \hlkwd{dpois}\hldef{(}\hlnum{0}\hldef{, lambda_8)}
+\hlkwd{cat}\hldef{(}\hlsng{"Probability that the instrument does not fail in an 8-hour shift is "}\hldef{,P_X_0)}
+\end{alltt}
+\begin{verbatim}
+## Probability that the instrument does not fail in an 8-hour shift is  0.8521438
+\end{verbatim}
+\begin{alltt}
+\hlcom{# part b}
+
+\hldef{lambda_24} \hlkwb{<-} \hlnum{0.02} \hlopt{*} \hlnum{24}
+
+\hlcom{# Probability of 0 failures}
+\hldef{P_X_0} \hlkwb{<-} \hlkwd{dpois}\hldef{(}\hlnum{0}\hldef{, lambda_24)}
+
+\hlcom{# Probability of at least 1 failure}
+\hldef{P_X_at_least_1} \hlkwb{<-} \hlnum{1} \hlopt{-} \hldef{P_X_0}
+\hlkwd{cat}\hldef{(}\hlsng{"Probability of atleast one failure in a 24-hour day is"}\hldef{,P_X_at_least_1)}
+\end{alltt}
+\begin{verbatim}
+## Probability of atleast one failure in a 24-hour day is 0.3812166
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\section{Question 3}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# part a}
+\hldef{mu} \hlkwb{<-} \hlnum{5}
+\hldef{sigma} \hlkwb{<-} \hlnum{0.2}
+
+\hlcom{# Probability of X > 5.5}
+\hldef{P_X_greater_5_5} \hlkwb{<-} \hlnum{1} \hlopt{-} \hlkwd{pnorm}\hldef{(}\hlnum{5.5}\hldef{,} \hlkwc{mean} \hldef{= mu,} \hlkwc{sd} \hldef{= sigma)}
+\hlkwd{cat}\hldef{(}\hlsng{"Probability of covering thickness greater than 5.5 mm is "}\hldef{,P_X_greater_5_5)}
+\end{alltt}
+\begin{verbatim}
+## Probability of covering thickness greater than 5.5 mm is  0.006209665
+\end{verbatim}
+\begin{alltt}
+\hlcom{# part b}
+\hldef{P_X_between_4_5_and_5_5} \hlkwb{<-} \hlkwd{pnorm}\hldef{(}\hlnum{5.5}\hldef{,} \hlkwc{mean} \hldef{= mu,} \hlkwc{sd} \hldef{= sigma)} \hlopt{-} \hlkwd{pnorm}\hldef{(}\hlnum{4.5}\hldef{,} \hlkwc{mean} \hldef{= mu,} \hlkwc{sd} \hldef{= sigma)}
+
+\hlcom{# Probability of not meeting specifications}
+\hldef{P_X_not_meet_specs} \hlkwb{<-} \hlnum{1} \hlopt{-} \hldef{P_X_between_4_5_and_5_5}
+\hlkwd{cat}\hldef{(}\hlsng{"If specifications require thickness between 4.5 and 5.5 , then proportions of coverings that do not meet the specifications is "}\hldef{,P_X_not_meet_specs)}
+\end{alltt}
+\begin{verbatim}
+## If specifications require thickness between 4.5 and 5.5 , then proportions of coverings that do not meet the specifications is  0.01241933
+\end{verbatim}
+\begin{alltt}
+\hlcom{# part c}
+
+\hldef{x_95} \hlkwb{<-} \hlkwd{qnorm}\hldef{(}\hlnum{0.95}\hldef{,} \hlkwc{mean} \hldef{= mu,} \hlkwc{sd} \hldef{= sigma)}
+\hlkwd{cat}\hldef{(}\hlsng{"Value below which 95% remain is "}\hldef{,x_95)}
+\end{alltt}
+\begin{verbatim}
+## Value below which 95% remain is  5.328971
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\section{Question 4}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# part a}
+
+\hldef{lambda} \hlkwb{<-} \hlnum{1} \hlopt{/} \hlnum{10}
+
+\hlcom{# Probability of X < 5}
+\hldef{P_X_less_5} \hlkwb{<-} \hlkwd{pexp}\hldef{(}\hlnum{5}\hldef{,} \hlkwc{rate} \hldef{= lambda)}
+\hlkwd{cat}\hldef{(}\hlsng{"Probability of time until the next class less than 5 mins is "}\hldef{,P_X_less_5)}
+\end{alltt}
+\begin{verbatim}
+## Probability of time until the next class less than 5 mins is  0.3934693
+\end{verbatim}
+\begin{alltt}
+\hlcom{# part b}
+
+\hldef{P_X_less_15} \hlkwb{<-} \hlkwd{pexp}\hldef{(}\hlnum{15}\hldef{,} \hlkwc{rate} \hldef{= lambda)}
+
+\hlcom{# Probability of 5 < X < 15}
+\hldef{P_X_between_5_and_15} \hlkwb{<-} \hldef{P_X_less_15} \hlopt{-} \hldef{P_X_less_5}
+\hlkwd{cat}\hldef{(}\hlsng{"Probability that the time until next class is between 5 and 15 mins is "}\hldef{,P_X_between_5_and_15)}
+\end{alltt}
+\begin{verbatim}
+## Probability that the time until next class is between 5 and 15 mins is  0.3834005
+\end{verbatim}
+\begin{alltt}
+\hlcom{# part c}
+
+\hldef{t} \hlkwb{<-} \hlopt{-}\hlkwd{log}\hldef{(}\hlnum{0.10}\hldef{)} \hlopt{/} \hldef{lambda}
+\hlkwd{cat}\hldef{(}\hlsng{"Length of interval such that probability of atleast one call in the interval is 0.90 "}\hldef{,t)}
+\end{alltt}
+\begin{verbatim}
+## Length of interval such that probability of atleast one call in the interval is 0.90  23.02585
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+
+
+
+
+
+\end{document}

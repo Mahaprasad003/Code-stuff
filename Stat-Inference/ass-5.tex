@@ -1,0 +1,197 @@
+\documentclass{article}\usepackage[]{graphicx}\usepackage[]{xcolor}
+% maxwidth is the original width if it is less than linewidth
+% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlsng}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hldef}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+
+
+\begin{center}
+Assignment 5 \\
+Name: Mahaprasad Mohanty \\
+Registration: 24MDT0061 \\
+Course: Statistical Inference \\
+Code: PMDS503P
+Slot: L33+L34
+\end{center}
+
+\section{Question 1}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{library}\hldef{(stats)}
+\hldef{caliper_1} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlnum{0.265}\hldef{,} \hlnum{0.265}\hldef{,} \hlnum{0.266}\hldef{,} \hlnum{0.267}\hldef{,} \hlnum{0.267}\hldef{,} \hlnum{0.265}\hldef{,} \hlnum{0.267}\hldef{,} \hlnum{0.267}\hldef{,} \hlnum{0.265}\hldef{,} \hlnum{0.268}\hldef{,} \hlnum{0.268}\hldef{,} \hlnum{0.265}\hldef{)}
+\hldef{caliper_2} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlnum{0.264}\hldef{,} \hlnum{0.265}\hldef{,} \hlnum{0.264}\hldef{,} \hlnum{0.266}\hldef{,} \hlnum{0.267}\hldef{,} \hlnum{0.268}\hldef{,} \hlnum{0.264}\hldef{,} \hlnum{0.265}\hldef{,} \hlnum{0.265}\hldef{,} \hlnum{0.267}\hldef{,} \hlnum{0.268}\hldef{,} \hlnum{0.269}\hldef{)}
+
+\hlcom{# Null Hypothesis (H0): The medians of the two samples are equal.}
+\hlcom{# Alternative Hypothesis (H1): The medians of the two samples are different.}
+
+
+\hlcom{# Perform Wilcoxon Signed-Rank Test}
+\hldef{result1} \hlkwb{<-} \hlkwd{wilcox.test}\hldef{(caliper_1, caliper_2,} \hlkwc{paired} \hldef{=} \hlnum{TRUE}\hldef{,} \hlkwc{alternative} \hldef{=} \hlsng{"two.sided"}\hldef{,} \hlkwc{conf.level} \hldef{=} \hlnum{0.95}\hldef{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in wilcox.test.default(caliper\_1, caliper\_2, paired = TRUE, alternative = "{}two.sided"{}, : cannot compute exact p-value with ties}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in wilcox.test.default(caliper\_1, caliper\_2, paired = TRUE, alternative = "{}two.sided"{}, : cannot compute exact p-value with zeroes}}\begin{alltt}
+\hlkwd{print}\hldef{(result1)}
+\end{alltt}
+\begin{verbatim}
+## 
+## 	Wilcoxon signed rank test with continuity correction
+## 
+## data:  caliper_1 and caliper_2
+## V = 21.5, p-value = 0.6721
+## alternative hypothesis: true location shift is not equal to 0
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+Given that the p-value is greater than 0.05, we accept our null hypothesis. Therefore, The medians of the 2 samples are equal.
+
+
+\section{Question 2}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{titanium_content} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlnum{8.32}\hldef{,} \hlnum{8.05}\hldef{,} \hlnum{8.93}\hldef{,} \hlnum{8.65}\hldef{,} \hlnum{8.25}\hldef{,} \hlnum{8.46}\hldef{,} \hlnum{8.52}\hldef{,} \hlnum{8.35}\hldef{,} \hlnum{8.36}\hldef{,} \hlnum{8.41}\hldef{,}
+                      \hlnum{8.42}\hldef{,} \hlnum{8.30}\hldef{,} \hlnum{8.71}\hldef{,} \hlnum{8.75}\hldef{,} \hlnum{8.60}\hldef{,} \hlnum{8.83}\hldef{,} \hlnum{8.50}\hldef{,} \hlnum{8.38}\hldef{,} \hlnum{8.29}\hldef{,} \hlnum{8.46}\hldef{)}
+
+\hlcom{# Null Hypothesis (H0): The median titanium content is 8.5.}
+\hlcom{# Alternative Hypothesis (H1): The median titanium content is different from 8.5.}
+
+\hlcom{# Perform Wilcoxon Signed-Rank Test}
+\hldef{mu_0} \hlkwb{<-} \hlnum{8.5}
+\hldef{result2} \hlkwb{<-} \hlkwd{wilcox.test}\hldef{(titanium_content,} \hlkwc{mu} \hldef{= mu_0,} \hlkwc{alternative} \hldef{=} \hlsng{"two.sided"}\hldef{,} \hlkwc{conf.level} \hldef{=} \hlnum{0.95}\hldef{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in wilcox.test.default(titanium\_content, mu = mu\_0, alternative = "{}two.sided"{}, : cannot compute exact p-value with ties}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in wilcox.test.default(titanium\_content, mu = mu\_0, alternative = "{}two.sided"{}, : cannot compute exact p-value with zeroes}}\begin{alltt}
+\hlkwd{print}\hldef{(result2)}
+\end{alltt}
+\begin{verbatim}
+## 
+## 	Wilcoxon signed rank test with continuity correction
+## 
+## data:  titanium_content
+## V = 80.5, p-value = 0.573
+## alternative hypothesis: true location is not equal to 8.5
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+Given that the p-value is greater than 0.05, we accept our null hypothesis. The median titanium content is 8.5.
+
+\section{Question 3}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Null Hypothesis (H0): The median current output of Circuit 1 is equal to Circuit 2.}
+\hlcom{# Alternative Hypothesis (H1): The median current output of Circuit 1 is greater than Circuit 2.}
+\hldef{circuit_1} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlnum{251}\hldef{,} \hlnum{255}\hldef{,} \hlnum{258}\hldef{,} \hlnum{257}\hldef{,} \hlnum{250}\hldef{,} \hlnum{251}\hldef{,} \hlnum{254}\hldef{,} \hlnum{250}\hldef{,} \hlnum{248}\hldef{)}
+\hldef{circuit_2} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlnum{250}\hldef{,} \hlnum{253}\hldef{,} \hlnum{249}\hldef{,} \hlnum{256}\hldef{,} \hlnum{259}\hldef{,} \hlnum{252}\hldef{,} \hlnum{260}\hldef{,} \hlnum{251}\hldef{)}
+
+\hlcom{# Perform Wilcoxon Rank-Sum Test}
+\hldef{result3} \hlkwb{<-} \hlkwd{wilcox.test}\hldef{(circuit_1, circuit_2,} \hlkwc{alternative} \hldef{=} \hlsng{"greater"}\hldef{,} \hlkwc{conf.level} \hldef{=} \hlnum{0.90}\hldef{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in wilcox.test.default(circuit\_1, circuit\_2, alternative = "{}greater"{}, : cannot compute exact p-value with ties}}\begin{alltt}
+\hlkwd{print}\hldef{(result3)}
+\end{alltt}
+\begin{verbatim}
+## 
+## 	Wilcoxon rank sum test with continuity correction
+## 
+## data:  circuit_1 and circuit_2
+## W = 30, p-value = 0.7352
+## alternative hypothesis: true location shift is greater than 0
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+Given that the p-value is greater than 0.10, we accept our null hypothesis. The median current output of both the circuits is the same.
+
+\section{Question 4}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{machine_data} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlnum{10.4}\hldef{,} \hlnum{10.6}\hldef{,} \hlnum{10.1}\hldef{,} \hlnum{10.3}\hldef{,} \hlnum{10.2}\hldef{,} \hlnum{10.9}\hldef{,} \hlnum{10.5}\hldef{,} \hlnum{10.8}\hldef{,} \hlnum{10.6}\hldef{,} \hlnum{10.5}\hldef{,} \hlnum{10.7}\hldef{,} \hlnum{10.2}\hldef{,} \hlnum{10.7}\hldef{,} \hlnum{10.3}\hldef{,} \hlnum{10.4}\hldef{,} \hlnum{10.5}\hldef{)}
+\hldef{mu} \hlkwb{<-} \hlnum{10.5}
+\hldef{sigma} \hlkwb{<-} \hlnum{0.15}
+\hlcom{# Null Hypothesis (H0): The wire length measurements follow a normal distribution N(10.5, 0.15^2).}
+\hlcom{# Alternative Hypothesis (H1): The wire length measurements do not follow the normal distribution.}
+
+\hlcom{# Standardize data}
+\hldef{machine_data_std} \hlkwb{<-} \hldef{(machine_data} \hlopt{-} \hldef{mu)} \hlopt{/} \hldef{sigma}
+
+\hlcom{# Perform Kolmogorov-Smirnov Test}
+\hldef{result4} \hlkwb{<-} \hlkwd{ks.test}\hldef{(machine_data_std,} \hlsng{"pnorm"}\hldef{,} \hlkwc{mean} \hldef{=} \hlnum{0}\hldef{,} \hlkwc{sd} \hldef{=} \hlnum{1}\hldef{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in ks.test.default(machine\_data\_std, "{}pnorm"{}, mean = 0, sd = 1): ties should not be present for the one-sample Kolmogorov-Smirnov test}}\begin{alltt}
+\hlkwd{print}\hldef{(result4)}
+\end{alltt}
+\begin{verbatim}
+## 
+## 	Asymptotic one-sample Kolmogorov-Smirnov test
+## 
+## data:  machine_data_std
+## D = 0.22129, p-value = 0.4136
+## alternative hypothesis: two-sided
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+Given that the p-value is greater than 0.05, we accept the null hypothesis. The wire length measurements follows a normal distribution.
+
+
+
+\end{document}

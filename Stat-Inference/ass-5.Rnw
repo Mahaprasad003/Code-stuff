@@ -1,0 +1,80 @@
+\documentclass{article}
+
+\begin{document}
+
+
+\begin{center}
+Assignment 5 \\
+Name: Mahaprasad Mohanty \\
+Registration: 24MDT0061 \\
+Course: Statistical Inference \\
+Code: PMDS503P
+Slot: L33+L34
+\end{center}
+
+\section{Question 1}
+<<>>=
+library(stats) 
+caliper_1 <- c(0.265, 0.265, 0.266, 0.267, 0.267, 0.265, 0.267, 0.267, 0.265, 0.268, 0.268, 0.265)
+caliper_2 <- c(0.264, 0.265, 0.264, 0.266, 0.267, 0.268, 0.264, 0.265, 0.265, 0.267, 0.268, 0.269)
+
+# Null Hypothesis (H0): The medians of the two samples are equal.
+# Alternative Hypothesis (H1): The medians of the two samples are different.
+
+
+# Perform Wilcoxon Signed-Rank Test
+result1 <- wilcox.test(caliper_1, caliper_2, paired = TRUE, alternative = "two.sided", conf.level = 0.95)
+print(result1)
+@
+Given that the p-value is greater than 0.05, we accept our null hypothesis. Therefore, The medians of the 2 samples are equal.
+
+
+\section{Question 2}
+<<>>=
+titanium_content <- c(8.32, 8.05, 8.93, 8.65, 8.25, 8.46, 8.52, 8.35, 8.36, 8.41, 
+                      8.42, 8.30, 8.71, 8.75, 8.60, 8.83, 8.50, 8.38, 8.29, 8.46)
+
+# Null Hypothesis (H0): The median titanium content is 8.5.
+# Alternative Hypothesis (H1): The median titanium content is different from 8.5.
+
+# Perform Wilcoxon Signed-Rank Test
+mu_0 <- 8.5
+result2 <- wilcox.test(titanium_content, mu = mu_0, alternative = "two.sided", conf.level = 0.95)
+print(result2)
+
+@
+Given that the p-value is greater than 0.05, we accept our null hypothesis. The median titanium content is 8.5.
+
+\section{Question 3}
+<<>>=
+# Null Hypothesis (H0): The median current output of Circuit 1 is equal to Circuit 2.
+# Alternative Hypothesis (H1): The median current output of Circuit 1 is greater than Circuit 2.
+circuit_1 <- c(251, 255, 258, 257, 250, 251, 254, 250, 248)
+circuit_2 <- c(250, 253, 249, 256, 259, 252, 260, 251)
+
+# Perform Wilcoxon Rank-Sum Test
+result3 <- wilcox.test(circuit_1, circuit_2, alternative = "greater", conf.level = 0.90)
+print(result3)
+@
+Given that the p-value is greater than 0.10, we accept our null hypothesis. The median current output of both the circuits is the same.
+
+\section{Question 4}
+<<>>=
+machine_data <- c(10.4, 10.6, 10.1, 10.3, 10.2, 10.9, 10.5, 10.8, 10.6, 10.5, 10.7, 10.2, 10.7, 10.3, 10.4, 10.5)
+mu <- 10.5
+sigma <- 0.15
+# Null Hypothesis (H0): The wire length measurements follow a normal distribution N(10.5, 0.15^2).
+# Alternative Hypothesis (H1): The wire length measurements do not follow the normal distribution.
+
+# Standardize data
+machine_data_std <- (machine_data - mu) / sigma
+
+# Perform Kolmogorov-Smirnov Test
+result4 <- ks.test(machine_data_std, "pnorm", mean = 0, sd = 1)
+print(result4)
+@
+Given that the p-value is greater than 0.05, we accept the null hypothesis. The wire length measurements follows a normal distribution.
+
+
+
+\end{document}
